@@ -17,7 +17,7 @@
                           │ Tunnel                   Tunnel  │
                           ▼                                  ▼
  ┌─────────────────────────────────────┐  ┌─────────────────────────────────────┐
- │        HOUSE A — Giroc 17A          │  │        HOUSE B — Giroc 17           │
+ │        HOUSE A — Mircea's Homelab     │  │        HOUSE B — Catalin's Homelab    │
  │        (Mircea's Homelab)           │  │        (Catalin's Homelab)          │
  │                                     │  │                                     │
  │  ┌───────────────────────────────┐  │  │  ┌───────────────────────────────┐  │
