@@ -295,7 +295,17 @@
                 <aside class="notes">Welcome everyone! Tonight I want to share a story about turning neighboring homelabs into a production-grade distributed platform.</aside>
             </section>
 
-            <!-- Slide 2: About Me -->
+            <!-- Slide 2: Giveaway (early to get people scanning) -->
+            <section class="center-slide">
+                <h2>🎁 Submit your idea — win Iron Man!</h2>
+                <p style="font-size: 1em;"><strong>What should we deploy next on the cluster?</strong></p>
+                <div class="qr-container">
+                    <div id="qr-giveaway-early"></div>
+                </div>
+                <p style="font-size: 1.1em; color: var(--accent-gold);">giveaway.mircea.solutions</p>
+            </section>
+
+            <!-- Slide 3: About Me -->
             <section>
                 <h2>About Me 👋</h2>
                 <p><strong style="font-size: 1.1em;">Mircea Adam</strong></p>
@@ -705,6 +715,14 @@ spec:
                 new QRCode(document.getElementById('qr-giveaway'), {
                     text: 'https://giveaway.mircea.solutions',
                     width: 220, height: 220,
+                    colorDark: '#0a0a0a', colorLight: '#ffffff',
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+            }
+            if (document.getElementById('qr-giveaway-early')) {
+                new QRCode(document.getElementById('qr-giveaway-early'), {
+                    text: 'https://giveaway.mircea.solutions',
+                    width: 300, height: 300,
                     colorDark: '#0a0a0a', colorLight: '#ffffff',
                     correctLevel: QRCode.CorrectLevel.H
                 });
