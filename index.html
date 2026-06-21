@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Cluster Next Door 🏘️ - CNCF Timisoara</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/black.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/highlight/monokai.css">
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <style>
+        :root {
+            --cncf-blue: #446ca9;
+            --cncf-teal: #00b39f;
+            --cncf-dark: #1a1a2e;
+            --cncf-light: #e0e0e0;
+            --cncf-accent: #76b5c5;
+        }
+        .reveal {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .reveal .slides {
+            text-align: left;
+        }
+        .reveal .slides section {
+            background: var(--cncf-dark);
+        }
+        .reveal h1, .reveal h2, .reveal h3 {
+            color: var(--cncf-teal);
+            text-transform: none;
+            font-weight: 600;
+        }
+        .reveal h1 {
+            font-size: 2.2em;
+        }
+        .reveal h2 {
+            font-size: 1.6em;
+        }
+        .reveal p, .reveal li {
+            color: var(--cncf-light);
+            font-size: 0.85em;
+            line-height: 1.6;
+        }
+        .reveal .subtitle {
+            color: var(--cncf-accent);
+            font-size: 0.7em;
+        }
+        .reveal .highlight-box {
+            background: rgba(0, 179, 159, 0.1);
+            border-left: 4px solid var(--cncf-teal);
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .reveal table {
+            font-size: 0.7em;
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        .reveal table th {
+            background: var(--cncf-blue);
+            color: white;
+            padding: 10px 15px;
+            text-align: left;
+        }
+        .reveal table td {
+            padding: 8px 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: var(--cncf-light);
+        }
+        .reveal table tr:nth-child(even) {
+            background: rgba(68, 108, 169, 0.1);
+        }
+        .reveal code {
+            color: var(--cncf-teal);
+            font-size: 0.9em;
+        }
+        .reveal pre {
+            width: 100%;
+            font-size: 0.55em;
+            box-shadow: none;
+            background: #0d1117;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 179, 159, 0.3);
+        }
+        .reveal pre code {
+            color: var(--cncf-light);
+            padding: 20px;
+        }
+        .reveal .emoji-large {
+            font-size: 3em;
+            margin: 20px 0;
+        }
+        .reveal .cost-table td:last-child {
+            color: var(--cncf-teal);
+            font-weight: bold;
+        }
+        .reveal .ascii-art {
+            font-family: 'Courier New', monospace;
+            font-size: 0.5em;
+            line-height: 1.4;
+            color: var(--cncf-accent);
+            text-align: center;
+        }
+        .reveal .qr-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+        }
+        .reveal .qr-container > div {
+            padding: 15px;
+            background: white;
+            border-radius: 12px;
+        }
+        .reveal .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+        .reveal .tag {
+            display: inline-block;
+            background: rgba(0, 179, 159, 0.2);
+            border: 1px solid var(--cncf-teal);
+            color: var(--cncf-teal);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.6em;
+            margin: 3px;
+        }
+        .reveal .links-list {
+            list-style: none;
+            padding: 0;
+        }
+        .reveal .links-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .reveal .links-list li a {
+            color: var(--cncf-accent);
+            text-decoration: none;
+        }
+        .title-slide {
+            text-align: center !important;
+        }
+        .title-slide h1 {
+            font-size: 2.5em !important;
+            margin-bottom: 0.2em;
+        }
+        .center-slide {
+            text-align: center !important;
+        }
+        .reveal .fragment.current-visible.visible:not(.current-fragment) {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Title -->
+            <section class="title-slide">
+                <h1>The Cluster Next Door 🏘️</h1>
+                <p style="font-size: 1em; color: var(--cncf-accent);">Multi-Site Kubernetes Federation<br>with Near-Zero Cloud Costs</p>
+                <br>
+                <p style="font-size: 0.7em;">CNCF Timisoara &bull; Mircea Adam</p>
+                <aside class="notes">Welcome everyone! Tonight I want to share a story about turning neighboring homelabs into a production-grade distributed platform.</aside>
+            </section>
+
+            <!-- Slide 2: About Me -->
+            <section>
+                <h2>About Me 👋</h2>
+                <p><strong style="color: white; font-size: 1.1em;">Mircea Adam</strong></p>
+                <ul>
+                    <li class="fragment">DevOps / Platform Engineer</li>
+                    <li class="fragment">Homelab enthusiast & recycled hardware collector</li>
+                    <li class="fragment">Building production-grade infra on e-waste</li>
+                    <li class="fragment">Neighbor's server room = my DR site</li>
+                </ul>
+                <aside class="notes">Quick intro — I'm a platform engineer who believes you don't need a cloud bill to run production workloads. My neighbor Catalin and I connected our homelabs.</aside>
+            </section>
+
+            <!-- Slide 3: The Idea -->
+            <section class="center-slide">
+                <p class="emoji-large">🤔</p>
+                <h2>What if your neighbor's server room<br>was your DR site?</h2>
+                <p class="fragment" style="font-size: 1em; color: var(--cncf-accent);">Two houses. Two racks. One cluster.</p>
+                <aside class="notes">The core idea: what if high availability didn't need multiple cloud regions? What if it just needed a good neighbor and some fiber?</aside>
+            </section>
+
+            <!-- Slide 4: The Problem -->
+            <section>
+                <h2>High Availability is Expensive 💸</h2>
+                <ul>
+                    <li class="fragment">Multi-AZ EKS: ~$150-300/month minimum</li>
+                    <li class="fragment">Multi-region: 2-3x that cost</li>
+                    <li class="fragment">DR patterns assume cloud-native = cloud-hosted</li>
+                    <li class="fragment">Small teams can't justify the spend</li>
+                </ul>
+                <div class="fragment highlight-box">
+                    <p>Enterprise HA patterns weren't designed for homelabbers.</p>
+                </div>
+                <aside class="notes">Cloud HA is designed for companies with budgets. Even a basic multi-AZ setup costs real money. What about the rest of us?</aside>
+            </section>
+
+            <!-- Slide 5: What if differently -->
+            <section>
+                <h2>What if we did it differently? ⚡</h2>
+                <ul>
+                    <li class="fragment">☀️ Solar-powered nodes (daytime compute is free)</li>
+                    <li class="fragment">♻️ Recycled enterprise hardware (ThinkPads, decommissioned servers)</li>
+                    <li class="fragment">🔌 Tailscale mesh between houses (no port forwarding)</li>
+                    <li class="fragment">☁️ AWS as cold DR only (EC2 stopped = $0)</li>
+                </ul>
+                <p class="fragment" style="color: var(--cncf-teal); font-size: 1em; margin-top: 30px;"><strong>Total monthly cost: ~$0.50</strong></p>
+                <aside class="notes">Solar panels, recycled hardware, and a mesh VPN. The only recurring cost is S3 for WAL backups.</aside>
+            </section>
+
+            <!-- Slide 6: Architecture Diagram -->
+            <section>
+                <h2>Architecture Overview 🏗️</h2>
+                <pre class="ascii-art"><code style="color: var(--cncf-accent);">
+    ┌─────────────────────────────────────────────────────────────────┐
+    │                        Cloudflare Edge                           │
+    │                   (Tunnels + DNS routing)                        │
+    └──────────┬──────────────────────┬──────────────────┬────────────┘
+               │                      │                  │
+    ┌──────────▼──────────┐ ┌────────▼────────┐ ┌──────▼──────────┐
+    │   🏠 House A (17A)   │ │  🏠 House B (17) │ │    ☁️  AWS       │
+    │                      │ │                  │ │                 │
+    │  ┌──────────────┐   │ │ ┌──────────────┐ │ │ ┌─────────────┐│
+    │  │ k3s-karmada  │   │ │ │   k3s-c      │ │ │ │  k3s-aws    ││
+    │  │ (federation) │   │ │ │ (1CP+2W)     │ │ │ │  (DR-cold)  ││
+    │  ├──────────────┤   │ │ └──────────────┘ │ │ └─────────────┘│
+    │  │  k3s-l570    │   │ │                  │ └─────────────────┘
+    │  │ (shared svc) │   │ │  Catalin's lab   │
+    │  ├──────────────┤   │ └──────────────────┘
+    │  │   k3s-m      │   │
+    │  │ (1CP+2W)     │   │      ◄── Tailscale Mesh ──►
+    │  └──────────────┘   │
+    │   Mircea's lab       │
+    └──────────────────────┘
+                </code></pre>
+                <aside class="notes">Two physical locations 50 meters apart. 5 clusters total. Cloudflare handles public ingress, Tailscale handles inter-cluster communication.</aside>
+            </section>
+
+            <!-- Slide 7: Cluster Breakdown -->
+            <section>
+                <h2>Cluster Breakdown 📋</h2>
+                <table>
+                    <thead>
+                        <tr><th>Cluster</th><th>Location</th><th>Role</th><th>Nodes</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>k3s-karmada</code></td><td>L570 (House A)</td><td>Federation control plane</td><td>1 CP</td></tr>
+                        <tr><td><code>k3s-l570</code></td><td>L570 (House A)</td><td>Shared services (ArgoCD, Grafana)</td><td>1 CP</td></tr>
+                        <tr><td><code>k3s-m</code></td><td>Homelab (House A)</td><td>Primary workloads + DB primary</td><td>1 CP + 2 W</td></tr>
+                        <tr><td><code>k3s-c</code></td><td>Catalin (House B)</td><td>Secondary workloads + DB replica</td><td>1 CP + 2 W</td></tr>
+                        <tr><td><code>k3s-aws</code></td><td>AWS eu-central-1</td><td>Cold DR (EC2 stopped)</td><td>1 CP</td></tr>
+                    </tbody>
+                </table>
+                <aside class="notes">5 clusters with clear separation of concerns. The L570 is a ThinkPad running two single-node clusters for management. The real workloads run on k3s-m and k3s-c.</aside>
+            </section>
+
+            <!-- Slide 8: Network Topology -->
+            <section>
+                <h2>Network Topology 🌐</h2>
+                <div class="two-col">
+                    <div>
+                        <h3 style="font-size: 0.9em;">Inter-site</h3>
+                        <ul>
+                            <li>Tailscale WireGuard mesh</li>
+                            <li>Every node has a 100.x.x.x address</li>
+                            <li>No port forwarding anywhere</li>
+                            <li>Encrypted by default</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 0.9em;">Local</h3>
+                        <ul>
+                            <li>VLAN 40: Karmada</li>
+                            <li>VLAN 41: k3s-l570</li>
+                            <li>VLAN 42: k3s-m</li>
+                            <li>No VLAN: k3s-c</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fragment highlight-box" style="margin-top: 20px;">
+                    <p>🔮 Future: direct fiber between houses for <1ms latency</p>
+                </div>
+                <aside class="notes">Tailscale makes the networking trivial. Each node gets a stable IP regardless of location. VLANs isolate traffic on each Proxmox host.</aside>
+            </section>
+
+            <!-- Slide 9: The Stack -->
+            <section>
+                <h2>The Stack 🧰</h2>
+                <div style="text-align: center;">
+                    <span class="tag">Karmada</span>
+                    <span class="tag">ArgoCD</span>
+                    <span class="tag">Traefik</span>
+                    <span class="tag">CloudNativePG</span>
+                    <span class="tag">Prometheus</span>
+                    <span class="tag">Grafana</span>
+                    <span class="tag">Tailscale</span>
+                    <span class="tag">Terraform</span>
+                    <span class="tag">Ansible</span>
+                    <span class="tag">Cloudflare Tunnels</span>
+                    <span class="tag">External Secrets Operator</span>
+                    <span class="tag">cert-manager</span>
+                    <span class="tag">MetalLB</span>
+                    <span class="tag">k3s</span>
+                    <span class="tag">Proxmox</span>
+                </div>
+                <p class="fragment" style="margin-top: 30px; text-align: center; color: var(--cncf-accent);">100% open source (except Tailscale coordination server &amp; Cloudflare)</p>
+                <aside class="notes">All CNCF or CNCF-adjacent projects. The beauty is they all work together out of the box with k3s.</aside>
+            </section>
+
+            <!-- Slide 10: GitOps -->
+            <section>
+                <h2>GitOps Everything 🔄</h2>
+                <ul>
+                    <li class="fragment">Single private repo: <code>infra-nk</code></li>
+                    <li class="fragment">ArgoCD app-of-apps pattern</li>
+                    <li class="fragment">Push to main → ArgoCD reconciles</li>
+                    <li class="fragment">Terraform + Ansible for infra layer</li>
+                </ul>
+                <pre class="fragment"><code class="language-plaintext">infra-nk/
+├── terraform/environments/    # Proxmox VMs + AWS EC2
+├── ansible/playbooks/         # k3s + platform install
+├── apps/
+│   ├── argocd-apps/           # App-of-apps definitions
+│   ├── base/                  # K8s manifests
+│   └── overlays/              # Per-cluster kustomize
+└── .github/workflows/         # CI/CD pipelines</code></pre>
+                <aside class="notes">Everything is declarative. Infrastructure, platform, and application layers — all in one repo, all in Git.</aside>
+            </section>
+
+            <!-- Slide 11: Karmada Federation -->
+            <section>
+                <h2>Karmada Federation 🌍</h2>
+                <p>Distribute workloads across clusters with policy-based scheduling</p>
+                <pre class="fragment"><code class="language-yaml">apiVersion: policy.karmada.io/v1alpha1
+kind: PropagationPolicy
+metadata:
+  name: figurines-propagation
+spec:
+  conflictResolution: Overwrite
+  resourceSelectors:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: figurines-frontend
+  placement:
+    clusterAffinity:
+      clusterNames:
+        - k3s-m
+        - k3s-c
+    replicaScheduling:
+      replicaSchedulingType: Duplicated
+  failover:
+    application:
+      decisionConditions:
+        tolerationSeconds: 120
+      purgeMode: Never</code></pre>
+                <p class="fragment" style="color: var(--cncf-accent);">Duplicated = full copy on each site. Cloudflare handles routing.</p>
+                <aside class="notes">Karmada's PropagationPolicy is the key. Duplicated scheduling means each cluster gets a full deployment. Failover is handled at the DNS/tunnel level by Cloudflare.</aside>
+            </section>
+
+            <!-- Slide 12: Cloudflare Tunnels -->
+            <section>
+                <h2>Cloudflare Tunnels 🚇</h2>
+                <ul>
+                    <li class="fragment">Zero port forwarding required</li>
+                    <li class="fragment">Cloudflared pod per cluster (outbound only)</li>
+                    <li class="fragment">Automatic failover between connectors</li>
+                    <li class="fragment">Free tier — no cost</li>
+                </ul>
+                <div class="fragment highlight-box">
+                    <p><strong>How failover works:</strong><br>
+                    Cloudflare sees multiple connectors for the same tunnel.<br>
+                    If one connector goes down → traffic routes to the healthy one automatically.</p>
+                </div>
+                <p class="fragment" style="color: var(--cncf-accent);">⚠️ Gotcha: Use separate tunnels per cluster for true DR (more on this later)</p>
+                <aside class="notes">Cloudflare Tunnels are magic for homelabs. No firewall rules, no dynamic DNS, no NAT traversal headaches. The 404 gotcha is real — shared tunnels can conflict.</aside>
+            </section>
+
+            <!-- Slide 13: CloudNativePG -->
+            <section>
+                <h2>CloudNativePG 🐘</h2>
+                <div class="two-col">
+                    <div>
+                        <h3 style="font-size: 0.8em;">Primary (k3s-m)</h3>
+                        <ul>
+                            <li>Write traffic</li>
+                            <li>Streaming replication out</li>
+                            <li>WAL archiving to S3</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 0.8em;">Replica (k3s-c)</h3>
+                        <ul>
+                            <li>Read-only traffic</li>
+                            <li>Hot standby</li>
+                            <li>Promote on primary failure</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fragment highlight-box" style="margin-top: 20px;">
+                    <p>Cross-site replication over Tailscale WireGuard tunnel<br>
+                    S3 WAL backups = point-in-time recovery for ~$0.50/month</p>
+                </div>
+                <aside class="notes">CloudNativePG handles Postgres natively in Kubernetes. Streaming replication works beautifully over Tailscale. The S3 WAL backup is our last-resort DR.</aside>
+            </section>
+
+            <!-- Slide 14: External Secrets Operator -->
+            <section>
+                <h2>External Secrets Operator 🔐</h2>
+                <p>Zero-cost secret management with AWS Parameter Store</p>
+                <pre class="fragment"><code class="language-yaml">apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: app-secrets
+  namespace: figurines
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: aws-parameter-store
+    kind: ClusterSecretStore
+  target:
+    name: app-secrets
+  data:
+    - secretKey: DATABASE_URL
+      remoteRef:
+        key: /cluster-next-door/figurines/database-url
+    - secretKey: CLOUDFLARE_TOKEN
+      remoteRef:
+        key: /cluster-next-door/cloudflare/tunnel-token</code></pre>
+                <p class="fragment" style="color: var(--cncf-accent);">No more <code>kubectl create secret</code> on every cluster 🎉</p>
+                <aside class="notes">ESO + Parameter Store is completely free and eliminates manual secret management. Secrets sync automatically across all clusters.</aside>
+            </section>
+
+            <!-- Slide 15: Monitoring -->
+            <section>
+                <h2>Observability 📊</h2>
+                <ul>
+                    <li class="fragment">Prometheus scraping all clusters via Tailscale</li>
+                    <li class="fragment">PVE Exporter for Proxmox host metrics</li>
+                    <li class="fragment">Node Exporter + kube-state-metrics per cluster</li>
+                    <li class="fragment">Grafana with public dashboards</li>
+                </ul>
+                <div class="fragment highlight-box">
+                    <p>🌐 <strong>Live:</strong> <a href="https://grafana.mircea.solutions" style="color: var(--cncf-teal);">grafana.mircea.solutions</a><br>
+                    Public dashboards — no login needed!</p>
+                </div>
+                <aside class="notes">Single Prometheus instance on k3s-l570 reaches across the Tailscale mesh to scrape every node and cluster. Public dashboards let anyone see the cluster health.</aside>
+            </section>
+
+            <!-- Slide 16: Grafana Dashboard -->
+            <section class="center-slide">
+                <h2>Public Dashboards 📈</h2>
+                <p>Kubernetes Overview &bull; Pods Inventory &bull; Node Health</p>
+                <div class="qr-container">
+                    <div id="qr-grafana"></div>
+                </div>
+                <p style="font-size: 0.7em; color: var(--cncf-accent);">grafana.mircea.solutions/public-dashboards/...</p>
+                <p class="fragment" style="font-size: 0.8em;">Live metrics from all clusters — right now! 🔴</p>
+                <aside class="notes">These are real public Grafana dashboards. Scan the QR or visit the link to see real-time metrics from the clusters running this presentation's demo.</aside>
+            </section>
+
+            <!-- Slide 17: Live Demo -->
+            <section>
+                <h2>Live Demo 🎬</h2>
+                <div class="two-col">
+                    <div>
+                        <h3 style="font-size: 0.8em;">Dashboard</h3>
+                        <p><a href="https://dashboard.mircea.solutions" style="color: var(--cncf-teal);">dashboard.mircea.solutions</a></p>
+                        <p style="font-size: 0.7em;">Cluster overview, monitoring links, live status</p>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 0.8em;">Figurines Store</h3>
+                        <p><a href="https://figurines.mircea.solutions" style="color: var(--cncf-teal);">figurines.mircea.solutions</a></p>
+                        <p style="font-size: 0.7em;">3D printed figurines catalog<br>(Catalin's art!)</p>
+                    </div>
+                </div>
+                <div class="fragment highlight-box" style="margin-top: 30px;">
+                    <p>Both apps run on <strong>k3s-m</strong> and <strong>k3s-c</strong> simultaneously.<br>
+                    Cloudflare routes to whichever site is healthy.</p>
+                </div>
+                <aside class="notes">Time for the live demo! Let's visit both sites and show how they're running across two physical locations.</aside>
+            </section>
+
+            <!-- Slide 18: Failover Demo -->
+            <section>
+                <h2>Failover Demo 🔥</h2>
+                <p style="font-size: 1em;">What happens when House A goes down?</p>
+                <ol>
+                    <li class="fragment">Cloudflare detects connector failure (~30s)</li>
+                    <li class="fragment">Traffic routes to House B connector</li>
+                    <li class="fragment">Users see zero downtime</li>
+                    <li class="fragment">Karmada marks cluster as NotReady (~120s)</li>
+                    <li class="fragment">When House A returns → traffic rebalances</li>
+                </ol>
+                <p class="fragment" style="color: var(--cncf-teal); font-size: 1em; margin-top: 20px;">🎯 RTO: ~30 seconds | RPO: 0 (active-active)</p>
+                <aside class="notes">The real magic — let's pull the power on one site and watch Cloudflare failover in real-time. RTO is about 30 seconds, RPO is zero because both sites are active.</aside>
+            </section>
+
+            <!-- Slide 19: What Went Wrong -->
+            <section>
+                <h2>What Went Wrong 💥</h2>
+                <ul>
+                    <li class="fragment"><strong style="color: white;">Karmada <code>operator: add</code></strong> — doesn't append, it <em>replaces</em>. Lost env vars on multiple deploys before figuring this out.</li>
+                    <li class="fragment"><strong style="color: white;">Cloudflared shared tunnel 404s</strong> — two clusters sharing one tunnel token causes route conflicts. Random 404s that are impossible to debug.</li>
+                    <li class="fragment"><strong style="color: white;">LXC → VM migration</strong> — started with LXC containers, but k3s needs kernel features that LXC doesn't provide cleanly. Had to rebuild everything as VMs.</li>
+                    <li class="fragment"><strong style="color: white;">Manual secrets</strong> — <code>kubectl create secret</code> on 4 clusters is not fun. ESO fixed this.</li>
+                </ul>
+                <aside class="notes">Lessons from production. The Karmada add operator is particularly sneaky — the name implies append but it actually replaces. Cost me hours of debugging.</aside>
+            </section>
+
+            <!-- Slide 20: What I'd Do Differently -->
+            <section>
+                <h2>What I'd Do Differently 🔄</h2>
+                <ul>
+                    <li class="fragment">✅ Start with ESO from day 1 (secrets across clusters are painful)</li>
+                    <li class="fragment">✅ Separate Cloudflare tunnels per cluster from the start</li>
+                    <li class="fragment">✅ VMs over LXCs for k3s (save the debugging time)</li>
+                    <li class="fragment">✅ Set <code>conflictResolution: Overwrite</code> in every PropagationPolicy</li>
+                    <li class="fragment">✅ Public Grafana dashboards need panel IDs — plan JSON structure early</li>
+                </ul>
+                <aside class="notes">If I started over today, these are the things I'd do from the beginning. Each one cost me at least half a day of debugging.</aside>
+            </section>
+
+            <!-- Slide 21: Cost Breakdown -->
+            <section>
+                <h2>Total Monthly Cost 🧮</h2>
+                <table class="cost-table">
+                    <thead>
+                        <tr><th>Service</th><th>What</th><th>Cost</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>AWS EC2</td><td>Stopped (DR only)</td><td>$0</td></tr>
+                        <tr><td>Cloudflare</td><td>Tunnels + DNS (free tier)</td><td>$0</td></tr>
+                        <tr><td>AWS S3</td><td>WAL backups (~2GB)</td><td>~$0.50</td></tr>
+                        <tr><td>AWS Parameter Store</td><td>Standard tier (free)</td><td>$0</td></tr>
+                        <tr><td>Tailscale</td><td>Free tier (personal)</td><td>$0</td></tr>
+                        <tr><td>Domains</td><td>mircea.solutions</td><td>~$1/mo</td></tr>
+                        <tr><td colspan="2" style="text-align: right; font-size: 1.1em;"><strong>Total</strong></td><td style="font-size: 1.3em;">~$1.50/mo</td></tr>
+                    </tbody>
+                </table>
+                <p class="fragment" style="text-align: center; color: var(--cncf-teal); font-size: 1em;">That's less than a coffee ☕</p>
+                <aside class="notes">The total cloud spend is under $2 per month. Everything else runs on hardware we already own, powered partially by solar. Compare this to even a minimal cloud HA setup.</aside>
+            </section>
+
+            <!-- Slide 22: Giveaway -->
+            <section class="center-slide">
+                <h2>🎁 Giveaway!</h2>
+                <p style="font-size: 0.9em;">Scan the QR code and submit your idea:<br><strong style="color: white;">What should we deploy next on the cluster?</strong></p>
+                <div class="qr-container">
+                    <div id="qr-giveaway"></div>
+                </div>
+                <p style="color: var(--cncf-teal); font-size: 0.9em;">Winner gets a 3D printed figurine from Catalin! 🎨</p>
+                <p style="font-size: 0.7em; color: var(--cncf-accent);">giveaway.mircea.solutions</p>
+                <aside class="notes">Audience participation time! Scan the QR, tell us what you'd like to see running on the cluster. Best idea wins one of Catalin's 3D printed figurines.</aside>
+            </section>
+
+            <!-- Slide 23: Links & Resources -->
+            <section>
+                <h2>Links & Resources 🔗</h2>
+                <div class="two-col">
+                    <div>
+                        <ul class="links-list">
+                            <li>📦 <a href="https://github.com/mirceaadam/cluster-next-door">GitHub: cluster-next-door</a></li>
+                            <li>🖥️ <a href="https://dashboard.mircea.solutions">dashboard.mircea.solutions</a></li>
+                            <li>📊 <a href="https://grafana.mircea.solutions">grafana.mircea.solutions</a></li>
+                            <li>🎨 <a href="https://figurines.mircea.solutions">figurines.mircea.solutions</a></li>
+                        </ul>
+                    </div>
+                    <div class="qr-container">
+                        <div id="qr-slides"></div>
+                        <p style="font-size: 0.6em; margin-top: 10px;">These slides</p>
+                    </div>
+                </div>
+                <div style="margin-top: 20px; text-align: center;">
+                    <span class="tag">Karmada Docs</span>
+                    <span class="tag">CloudNativePG</span>
+                    <span class="tag">Cloudflare Tunnels</span>
+                    <span class="tag">External Secrets</span>
+                    <span class="tag">Tailscale</span>
+                </div>
+                <aside class="notes">All the links you need. The cluster-next-door repo is public — feel free to explore, star, and contribute ideas.</aside>
+            </section>
+
+            <!-- Slide 24: Thank You -->
+            <section class="center-slide">
+                <p class="emoji-large">🙏</p>
+                <h2>Thank You!</h2>
+                <p style="font-size: 1em;">Questions?</p>
+                <br>
+                <p style="font-size: 0.8em; color: var(--cncf-light);">Mircea Adam</p>
+                <p style="font-size: 0.7em;">
+                    <a href="https://github.com/mirceaadam" style="color: var(--cncf-accent);">github.com/mirceaadam</a> &bull;
+                    <a href="https://mircea.solutions" style="color: var(--cncf-accent);">mircea.solutions</a>
+                </p>
+                <br>
+                <p style="font-size: 0.7em; color: var(--cncf-accent);">CNCF Timisoara 💙</p>
+                <aside class="notes">Thank you everyone! Happy to answer questions about any part of the setup. The repo is public so you can follow along and build your own cluster next door.</aside>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: true,
+            transition: 'slide',
+            backgroundTransition: 'fade',
+            center: true,
+            plugins: [RevealNotes, RevealHighlight]
+        });
+
+        // Generate QR codes after DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Giveaway QR
+            if (document.getElementById('qr-giveaway')) {
+                new QRCode(document.getElementById('qr-giveaway'), {
+                    text: 'https://giveaway.mircea.solutions',
+                    width: 250,
+                    height: 250,
+                    colorDark: '#1a1a2e',
+                    colorLight: '#ffffff',
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+            }
+
+            // Grafana QR
+            if (document.getElementById('qr-grafana')) {
+                new QRCode(document.getElementById('qr-grafana'), {
+                    text: 'https://grafana.mircea.solutions',
+                    width: 180,
+                    height: 180,
+                    colorDark: '#1a1a2e',
+                    colorLight: '#ffffff',
+                    correctLevel: QRCode.CorrectLevel.M
+                });
+            }
+
+            // Slides QR
+            if (document.getElementById('qr-slides')) {
+                new QRCode(document.getElementById('qr-slides'), {
+                    text: 'https://mirceaadam.github.io/cluster-next-door',
+                    width: 150,
+                    height: 150,
+                    colorDark: '#1a1a2e',
+                    colorLight: '#ffffff',
+                    correctLevel: QRCode.CorrectLevel.M
+                });
+            }
+        });
+    </script>
+</body>
+</html>
