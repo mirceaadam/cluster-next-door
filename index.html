@@ -370,15 +370,16 @@
             <section>
                 <h2>Cluster Breakdown 📋</h2>
                 <table>
-                    <thead><tr><th>Cluster</th><th>Location</th><th>Role</th><th>Nodes</th></tr></thead>
+                    <thead><tr><th>Cluster</th><th>Location</th><th>Hardware</th><th>Role</th></tr></thead>
                     <tbody>
-                        <tr><td><code>k3s-karmada</code></td><td>L570 (House A)</td><td>Federation control plane</td><td>1 CP</td></tr>
-                        <tr><td><code>k3s-l570</code></td><td>L570 (House A)</td><td>ArgoCD, Grafana, Prometheus</td><td>1 CP</td></tr>
-                        <tr><td><code>k3s-m</code></td><td>Homelab (House A)</td><td>Primary workloads + DB</td><td>1 CP + 2 W</td></tr>
-                        <tr><td><code>k3s-c</code></td><td>Catalin (House B)</td><td>Secondary + DB replica</td><td>1 CP + 2 W</td></tr>
-                        <tr><td><code>k3s-aws</code></td><td>AWS eu-central-1</td><td>Cold DR (stopped)</td><td>1 CP</td></tr>
+                        <tr><td><code>k3s-karmada</code></td><td>L570 (House A)</td><td>i5-6300U · 3.5GB</td><td>Federation control plane</td></tr>
+                        <tr><td><code>k3s-l570</code></td><td>L570 (House A)</td><td>i5-6300U · 8GB</td><td>ArgoCD, Grafana, Prometheus</td></tr>
+                        <tr><td><code>k3s-m</code></td><td>Homelab (House A)</td><td>i3-13100 · 64GB</td><td>Primary workloads + DB</td></tr>
+                        <tr><td><code>k3s-c</code></td><td>Catalin (House B)</td><td>i5-8500T · 32GB</td><td>Secondary + DB replica</td></tr>
+                        <tr><td><code>k3s-aws</code></td><td>AWS eu-central-1</td><td>t3.small · 2GB</td><td>Cold DR (stopped)</td></tr>
                     </tbody>
                 </table>
+                <p class="fragment" style="color: var(--text-secondary); font-size: 0.75em; margin-top: 10px;">L570 = ThinkPad laptop running 24/7 · Homelab & Catalin = Proxmox VMs on desktop hardware</p>
             </section>
 
             <!-- Slide 8: Network -->
