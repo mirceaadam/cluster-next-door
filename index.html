@@ -306,12 +306,27 @@
                 <aside class="notes">Quick intro — I'm a platform engineer who believes you don't need a cloud bill to run production workloads.</aside>
             </section>
 
+            <!-- Slide 2.5: Meet the Hardware -->
+            <section>
+                <h2>Meet the Hardware 🖥️</h2>
+                <table>
+                    <thead><tr><th>Host</th><th>CPU</th><th>RAM</th><th>Role</th></tr></thead>
+                    <tbody>
+                        <tr><td>ThinkPad L570</td><td>i5-6300U (2C/4T)</td><td>12 GB</td><td>Karmada + shared services</td></tr>
+                        <tr><td>Homelab Desktop</td><td>i3-13100 (4C/8T)</td><td>64 GB</td><td>Primary workloads + DB</td></tr>
+                        <tr><td>Catalin's Desktop</td><td>i5-8500T (6C/6T)</td><td>32 GB</td><td>Secondary site</td></tr>
+                        <tr><td>AWS EC2 t3.small</td><td>2 vCPU</td><td>2 GB</td><td>Cold DR (stopped)</td></tr>
+                    </tbody>
+                </table>
+                <p class="fragment" style="color: var(--text-secondary); font-size: 0.8em; margin-top: 15px;">All on-prem nodes run as Proxmox VMs · Solar powered ☀️ · Total cost of hardware: ~€200 (used market)</p>
+            </section>
+
             <!-- Slide 3: The Idea -->
             <section class="center-slide">
                 <p class="emoji-large">🤔</p>
-                <h2>What if your neighbor's server room<br>was your DR site?</h2>
+                <h2>Does it run <del style="opacity: 0.5;">Crysis</del> Kubernetes?</h2>
                 <p class="fragment" style="font-size: 1.1em; color: var(--accent-gold);">Two houses. Two racks. One cluster.</p>
-                <aside class="notes">The core idea: what if high availability didn't need multiple cloud regions? What if it just needed a good neighbor and some fiber?</aside>
+                <aside class="notes">The classic question — but with k3s, even a ThinkPad can run a full Kubernetes cluster. So we went a bit further...</aside>
             </section>
 
             <!-- Slide 4: The Problem -->
