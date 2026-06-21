@@ -155,6 +155,68 @@
         .reveal .fragment.current-visible.visible:not(.current-fragment) {
             display: none;
         }
+        /* Live Giveaway Bar */
+        #giveaway-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 38px;
+            background: linear-gradient(90deg, rgba(26,26,46,0.95) 0%, rgba(0,179,159,0.08) 50%, rgba(26,26,46,0.95) 100%);
+            border-top: 1px solid rgba(0,179,159,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 13px;
+            z-index: 1000;
+            padding: 0 20px;
+            backdrop-filter: blur(10px);
+        }
+        #giveaway-bar .bar-section {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--cncf-light);
+        }
+        #giveaway-bar .bar-label {
+            color: var(--cncf-accent);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        #giveaway-bar .bar-value {
+            color: var(--cncf-teal);
+            font-weight: 600;
+        }
+        #giveaway-bar .bar-hot {
+            color: #ffd60a;
+            max-width: 350px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        #giveaway-bar .bar-hot .hot-title {
+            font-weight: 600;
+            color: #fff;
+        }
+        #giveaway-bar .bar-divider {
+            width: 1px;
+            height: 18px;
+            background: rgba(255,255,255,0.15);
+        }
+        #giveaway-bar .bar-pulse {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--cncf-teal);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
     </style>
 </head>
 <body>
@@ -610,6 +672,25 @@ spec:
         </div>
     </div>
 
+    <!-- Live Giveaway Bar -->
+    <div id="giveaway-bar">
+        <div class="bar-section">
+            <span class="bar-pulse"></span>
+            <span class="bar-label">Live</span>
+        </div>
+        <div class="bar-divider"></div>
+        <div class="bar-section">
+            <span class="bar-label">Ideas:</span>
+            <span class="bar-value" id="bar-total">—</span>
+        </div>
+        <div class="bar-divider"></div>
+        <div class="bar-section bar-hot">
+            <span class="bar-label">🔥 Hot:</span>
+            <span class="hot-title" id="bar-hot-idea">loading...</span>
+            <span class="bar-value" id="bar-hot-votes"></span>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/notes/notes.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/highlight/highlight.js"></script>
@@ -661,6 +742,36 @@ spec:
                 });
             }
         });
+
+        // Live Giveaway Bar — polls /api/ideas every 15 seconds
+        async function updateGiveawayBar() {
+            try {
+                const resp = await fetch('https://giveaway.mircea.solutions/api/ideas', {
+                    signal: AbortSignal.timeout(5000)
+                });
+                if (!resp.ok) return;
+                const data = await resp.json();
+
+                document.getElementById('bar-total').textContent = data.total || 0;
+
+                if (data.ideas && data.ideas.length > 0) {
+                    // Sort by vote_count descending, pick the top one
+                    const sorted = [...data.ideas].sort((a, b) => b.vote_count - a.vote_count);
+                    const hot = sorted[0];
+                    document.getElementById('bar-hot-idea').textContent = hot.title;
+                    document.getElementById('bar-hot-votes').textContent = hot.vote_count > 0 ? `(${hot.vote_count} ▲)` : '';
+                } else {
+                    document.getElementById('bar-hot-idea').textContent = 'no ideas yet — scan QR to be first!';
+                    document.getElementById('bar-hot-votes').textContent = '';
+                }
+            } catch (e) {
+                // Silently ignore errors — keep last known values
+            }
+        }
+
+        // Initial fetch + interval
+        updateGiveawayBar();
+        setInterval(updateGiveawayBar, 15000);
     </script>
 </body>
 </html>
