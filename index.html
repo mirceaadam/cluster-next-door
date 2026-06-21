@@ -4,115 +4,225 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Cluster Next Door 🏘️ - CNCF Timisoara</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/black.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/highlight/monokai.css">
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
     <style>
         :root {
-            --cncf-blue: #446ca9;
-            --cncf-teal: #00b39f;
-            --cncf-dark: #1a1a2e;
-            --cncf-light: #e0e0e0;
-            --cncf-accent: #76b5c5;
+            --bg-primary: #0a0a0a;
+            --bg-card: rgba(24, 24, 24, 0.7);
+            --border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f5f5f7;
+            --text-secondary: #8e8e93;
+            --accent-gold: #e5c07b;
+            --accent-gold-end: #c9a96e;
+            --accent-glow: rgba(201, 169, 110, 0.25);
+            --success: #30d158;
+            --radius: 12px;
         }
+
+        body {
+            background: var(--bg-primary);
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        /* Animated glow orbs background */
+        .glow-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.1;
+            mix-blend-mode: screen;
+        }
+        .orb-1 {
+            top: -10%; right: 15%;
+            width: 45vw; height: 45vw;
+            background: radial-gradient(circle, var(--accent-gold) 0%, transparent 80%);
+            animation: float1 25s ease infinite alternate;
+        }
+        .orb-2 {
+            bottom: 10%; left: -5%;
+            width: 50vw; height: 50vw;
+            background: radial-gradient(circle, #3a2e1d 0%, transparent 80%);
+            animation: float2 30s ease infinite alternate;
+        }
+        @keyframes float1 {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(-80px, 50px) scale(1.1); }
+        }
+        @keyframes float2 {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(100px, -60px) scale(1.15); }
+        }
+
+        /* Top status bar */
+        #giveaway-bar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 42px;
+            background: rgba(18, 18, 18, 0.85);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem;
+            z-index: 1000;
+            padding: 0 20px;
+        }
+        #giveaway-bar .bar-section {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-secondary);
+        }
+        #giveaway-bar .bar-label {
+            opacity: 0.7;
+            font-size: 0.72rem;
+        }
+        #giveaway-bar .bar-value {
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+        #giveaway-bar .bar-hot .hot-title {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        #giveaway-bar .bar-divider {
+            width: 1px;
+            height: 18px;
+            background: rgba(255,255,255,0.1);
+        }
+        #giveaway-bar .bar-pulse {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--success);
+            box-shadow: 0 0 8px var(--success);
+            animation: pulse-dot 2s infinite;
+        }
+        #giveaway-bar .bar-link {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; box-shadow: 0 0 12px var(--success); }
+        }
+
+        /* Reveal.js overrides for full-screen dark design */
         .reveal {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            position: relative;
+            z-index: 1;
         }
         .reveal .slides {
             text-align: left;
+            top: 20px !important;
         }
         .reveal .slides section {
-            background: var(--cncf-dark);
+            background: transparent !important;
+            padding: 40px 60px;
+        }
+        .reveal .slide-background {
+            background: transparent !important;
         }
         .reveal h1, .reveal h2, .reveal h3 {
-            color: var(--cncf-teal);
+            font-family: 'Outfit', sans-serif;
+            color: var(--accent-gold);
             text-transform: none;
             font-weight: 600;
+            text-shadow: none;
         }
-        .reveal h1 {
-            font-size: 2.2em;
-        }
-        .reveal h2 {
-            font-size: 1.6em;
-        }
+        .reveal h1 { font-size: 2.8em; }
+        .reveal h2 { font-size: 1.8em; margin-bottom: 0.6em; }
+        .reveal h3 { font-size: 1.1em; color: var(--accent-gold-end); }
         .reveal p, .reveal li {
-            color: var(--cncf-light);
-            font-size: 0.85em;
-            line-height: 1.6;
+            color: var(--text-primary);
+            font-size: 0.88em;
+            line-height: 1.7;
         }
-        .reveal .subtitle {
-            color: var(--cncf-accent);
-            font-size: 0.7em;
-        }
+        .reveal li { margin-bottom: 0.4em; }
+        .reveal strong { color: #fff; }
+        .reveal a { color: var(--accent-gold); text-decoration: none; }
+        .reveal a:hover { text-decoration: underline; }
+
         .reveal .highlight-box {
-            background: rgba(0, 179, 159, 0.1);
-            border-left: 4px solid var(--cncf-teal);
-            padding: 15px 20px;
-            margin: 15px 0;
-            border-radius: 4px;
+            background: rgba(201, 169, 110, 0.06);
+            border-left: 3px solid var(--accent-gold);
+            padding: 14px 20px;
+            margin: 18px 0;
+            border-radius: 6px;
         }
         .reveal table {
-            font-size: 0.7em;
+            font-size: 0.72em;
             border-collapse: collapse;
             width: 100%;
-            margin: 20px 0;
+            margin: 18px 0;
         }
         .reveal table th {
-            background: var(--cncf-blue);
-            color: white;
-            padding: 10px 15px;
+            background: rgba(201, 169, 110, 0.15);
+            color: var(--accent-gold);
+            padding: 10px 14px;
             text-align: left;
+            border-bottom: 1px solid rgba(201, 169, 110, 0.3);
         }
         .reveal table td {
-            padding: 8px 15px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            color: var(--cncf-light);
-        }
-        .reveal table tr:nth-child(even) {
-            background: rgba(68, 108, 169, 0.1);
+            padding: 8px 14px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-primary);
         }
         .reveal code {
-            color: var(--cncf-teal);
-            font-size: 0.9em;
+            color: var(--accent-gold);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.88em;
         }
         .reveal pre {
             width: 100%;
-            font-size: 0.55em;
+            font-size: 0.52em;
             box-shadow: none;
-            background: #0d1117;
-            border-radius: 8px;
-            border: 1px solid rgba(0, 179, 159, 0.3);
+            background: rgba(10, 10, 10, 0.8);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
         }
         .reveal pre code {
-            color: var(--cncf-light);
-            padding: 20px;
+            color: var(--text-primary);
+            padding: 18px;
+            font-family: 'JetBrains Mono', monospace;
         }
-        .reveal .emoji-large {
-            font-size: 3em;
-            margin: 20px 0;
-        }
-        .reveal .cost-table td:last-child {
-            color: var(--cncf-teal);
-            font-weight: bold;
-        }
+        .reveal .emoji-large { font-size: 3em; margin: 15px 0; }
         .reveal .ascii-art {
-            font-family: 'Courier New', monospace;
-            font-size: 0.5em;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.48em;
             line-height: 1.4;
-            color: var(--cncf-accent);
+            color: var(--text-secondary);
             text-align: center;
         }
         .reveal .qr-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 20px 0;
+            margin: 18px 0;
         }
         .reveal .qr-container > div {
-            padding: 15px;
+            padding: 14px;
             background: white;
-            border-radius: 12px;
+            border-radius: var(--radius);
         }
         .reveal .two-col {
             display: grid;
@@ -122,134 +232,87 @@
         }
         .reveal .tag {
             display: inline-block;
-            background: rgba(0, 179, 159, 0.2);
-            border: 1px solid var(--cncf-teal);
-            color: var(--cncf-teal);
+            background: rgba(201, 169, 110, 0.1);
+            border: 1px solid rgba(201, 169, 110, 0.35);
+            color: var(--accent-gold);
             padding: 4px 12px;
             border-radius: 20px;
             font-size: 0.6em;
             margin: 3px;
         }
-        .reveal .links-list {
-            list-style: none;
-            padding: 0;
+        .reveal .cost-table td:last-child {
+            color: var(--accent-gold);
+            font-weight: 600;
         }
-        .reveal .links-list li {
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        .reveal .links-list li a {
-            color: var(--cncf-accent);
-            text-decoration: none;
-        }
-        .title-slide {
-            text-align: center !important;
-        }
-        .title-slide h1 {
-            font-size: 2.5em !important;
-            margin-bottom: 0.2em;
-        }
-        .center-slide {
-            text-align: center !important;
-        }
+        .title-slide { text-align: center !important; }
+        .title-slide h1 { font-size: 3em !important; margin-bottom: 0.2em; }
+        .center-slide { text-align: center !important; }
         .reveal .fragment.current-visible.visible:not(.current-fragment) {
             display: none;
-        }
-        /* Live Giveaway Bar */
-        #giveaway-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 38px;
-            background: linear-gradient(90deg, rgba(26,26,46,0.95) 0%, rgba(0,179,159,0.08) 50%, rgba(26,26,46,0.95) 100%);
-            border-top: 1px solid rgba(0,179,159,0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 24px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 13px;
-            z-index: 1000;
-            padding: 0 20px;
-            backdrop-filter: blur(10px);
-        }
-        #giveaway-bar .bar-section {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--cncf-light);
-        }
-        #giveaway-bar .bar-label {
-            color: var(--cncf-accent);
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        #giveaway-bar .bar-value {
-            color: var(--cncf-teal);
-            font-weight: 600;
-        }
-        #giveaway-bar .bar-hot {
-            color: #ffd60a;
-            max-width: 350px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        #giveaway-bar .bar-hot .hot-title {
-            font-weight: 600;
-            color: #fff;
-        }
-        #giveaway-bar .bar-divider {
-            width: 1px;
-            height: 18px;
-            background: rgba(255,255,255,0.15);
-        }
-        #giveaway-bar .bar-pulse {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--cncf-teal);
-            animation: pulse 2s ease-in-out infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 0.4; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.3); }
         }
     </style>
 </head>
 <body>
+    <!-- Background Animated Mesh Glows -->
+    <div class="glow-bg">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+    </div>
+
+    <!-- Top Status Bar -->
+    <div id="giveaway-bar">
+        <div class="bar-section">
+            <span class="bar-pulse"></span>
+            <span class="bar-label">Live</span>
+        </div>
+        <div class="bar-divider"></div>
+        <div class="bar-section">
+            <span class="bar-label">Ideas:</span>
+            <span class="bar-value" id="bar-total">—</span>
+        </div>
+        <div class="bar-divider"></div>
+        <div class="bar-section bar-hot">
+            <span class="bar-label">🔥</span>
+            <span class="hot-title" id="bar-hot-idea">loading...</span>
+            <span class="bar-value" id="bar-hot-votes"></span>
+        </div>
+        <div class="bar-divider"></div>
+        <div class="bar-section">
+            <a href="https://giveaway.mircea.solutions" target="_blank" class="bar-link">giveaway.mircea.solutions</a>
+            <span class="bar-label">← submit your ideas here, win ironman</span>
+        </div>
+    </div>
+
     <div class="reveal">
         <div class="slides">
 
             <!-- Slide 1: Title -->
             <section class="title-slide">
                 <h1>The Cluster Next Door 🏘️</h1>
-                <p style="font-size: 1em; color: var(--cncf-accent);">Multi-Site Kubernetes Federation<br>with Near-Zero Cloud Costs</p>
+                <p style="font-size: 1.1em; color: var(--text-secondary);">Multi-Site Kubernetes Federation<br>with Near-Zero Cloud Costs</p>
                 <br>
-                <p style="font-size: 0.7em;">CNCF Timisoara &bull; Mircea Adam</p>
+                <p style="font-size: 0.8em; color: var(--text-secondary);">CNCF Timisoara &bull; Mircea Adam</p>
                 <aside class="notes">Welcome everyone! Tonight I want to share a story about turning neighboring homelabs into a production-grade distributed platform.</aside>
             </section>
 
             <!-- Slide 2: About Me -->
             <section>
                 <h2>About Me 👋</h2>
-                <p><strong style="color: white; font-size: 1.1em;">Mircea Adam</strong></p>
+                <p><strong style="font-size: 1.1em;">Mircea Adam</strong></p>
                 <ul>
                     <li class="fragment">DevOps / Platform Engineer</li>
                     <li class="fragment">Homelab enthusiast & recycled hardware collector</li>
                     <li class="fragment">Building production-grade infra on e-waste</li>
                     <li class="fragment">Neighbor's server room = my DR site</li>
                 </ul>
-                <aside class="notes">Quick intro — I'm a platform engineer who believes you don't need a cloud bill to run production workloads. My neighbor Catalin and I connected our homelabs.</aside>
+                <aside class="notes">Quick intro — I'm a platform engineer who believes you don't need a cloud bill to run production workloads.</aside>
             </section>
 
             <!-- Slide 3: The Idea -->
             <section class="center-slide">
                 <p class="emoji-large">🤔</p>
                 <h2>What if your neighbor's server room<br>was your DR site?</h2>
-                <p class="fragment" style="font-size: 1em; color: var(--cncf-accent);">Two houses. Two racks. One cluster.</p>
+                <p class="fragment" style="font-size: 1.1em; color: var(--accent-gold);">Two houses. Two racks. One cluster.</p>
                 <aside class="notes">The core idea: what if high availability didn't need multiple cloud regions? What if it just needed a good neighbor and some fiber?</aside>
             </section>
 
@@ -265,7 +328,6 @@
                 <div class="fragment highlight-box">
                     <p>Enterprise HA patterns weren't designed for homelabbers.</p>
                 </div>
-                <aside class="notes">Cloud HA is designed for companies with budgets. Even a basic multi-AZ setup costs real money. What about the rest of us?</aside>
             </section>
 
             <!-- Slide 5: What if differently -->
@@ -273,18 +335,17 @@
                 <h2>What if we did it differently? ⚡</h2>
                 <ul>
                     <li class="fragment">☀️ Solar-powered nodes (daytime compute is free)</li>
-                    <li class="fragment">♻️ Recycled enterprise hardware (ThinkPads, decommissioned servers)</li>
+                    <li class="fragment">♻️ Recycled enterprise hardware (ThinkPads, servers)</li>
                     <li class="fragment">🔌 Tailscale mesh between houses (no port forwarding)</li>
                     <li class="fragment">☁️ AWS as cold DR only (EC2 stopped = $0)</li>
                 </ul>
-                <p class="fragment" style="color: var(--cncf-teal); font-size: 1em; margin-top: 30px;"><strong>Total monthly cost: ~$0.50</strong></p>
-                <aside class="notes">Solar panels, recycled hardware, and a mesh VPN. The only recurring cost is S3 for WAL backups.</aside>
+                <p class="fragment" style="color: var(--accent-gold); font-size: 1.1em; margin-top: 25px;"><strong>Total monthly cost: ~$1.50</strong></p>
             </section>
 
             <!-- Slide 6: Architecture Diagram -->
             <section>
                 <h2>Architecture Overview 🏗️</h2>
-                <pre class="ascii-art"><code style="color: var(--cncf-accent);">
+                <pre class="ascii-art"><code style="color: var(--text-secondary);">
     ┌─────────────────────────────────────────────────────────────────┐
     │                        Cloudflare Edge                           │
     │                   (Tunnels + DNS routing)                        │
@@ -292,56 +353,51 @@
                │                      │                  │
     ┌──────────▼──────────┐ ┌────────▼────────┐ ┌──────▼──────────┐
     │   🏠 House A (17A)   │ │  🏠 House B (17) │ │    ☁️  AWS       │
-    │                      │ │                  │ │                 │
     │  ┌──────────────┐   │ │ ┌──────────────┐ │ │ ┌─────────────┐│
     │  │ k3s-karmada  │   │ │ │   k3s-c      │ │ │ │  k3s-aws    ││
     │  │ (federation) │   │ │ │ (1CP+2W)     │ │ │ │  (DR-cold)  ││
     │  ├──────────────┤   │ │ └──────────────┘ │ │ └─────────────┘│
-    │  │  k3s-l570    │   │ │                  │ └─────────────────┘
-    │  │ (shared svc) │   │ │  Catalin's lab   │
-    │  ├──────────────┤   │ └──────────────────┘
-    │  │   k3s-m      │   │
-    │  │ (1CP+2W)     │   │      ◄── Tailscale Mesh ──►
+    │  │  k3s-l570    │   │ │  Catalin's lab   │ └─────────────────┘
+    │  │ (shared svc) │   │ └──────────────────┘
+    │  ├──────────────┤   │
+    │  │   k3s-m      │   │      ◄── Tailscale Mesh ──►
+    │  │ (1CP+2W)     │   │
     │  └──────────────┘   │
     │   Mircea's lab       │
     └──────────────────────┘
                 </code></pre>
-                <aside class="notes">Two physical locations 50 meters apart. 5 clusters total. Cloudflare handles public ingress, Tailscale handles inter-cluster communication.</aside>
             </section>
 
             <!-- Slide 7: Cluster Breakdown -->
             <section>
                 <h2>Cluster Breakdown 📋</h2>
                 <table>
-                    <thead>
-                        <tr><th>Cluster</th><th>Location</th><th>Role</th><th>Nodes</th></tr>
-                    </thead>
+                    <thead><tr><th>Cluster</th><th>Location</th><th>Role</th><th>Nodes</th></tr></thead>
                     <tbody>
                         <tr><td><code>k3s-karmada</code></td><td>L570 (House A)</td><td>Federation control plane</td><td>1 CP</td></tr>
-                        <tr><td><code>k3s-l570</code></td><td>L570 (House A)</td><td>Shared services (ArgoCD, Grafana)</td><td>1 CP</td></tr>
-                        <tr><td><code>k3s-m</code></td><td>Homelab (House A)</td><td>Primary workloads + DB primary</td><td>1 CP + 2 W</td></tr>
-                        <tr><td><code>k3s-c</code></td><td>Catalin (House B)</td><td>Secondary workloads + DB replica</td><td>1 CP + 2 W</td></tr>
-                        <tr><td><code>k3s-aws</code></td><td>AWS eu-central-1</td><td>Cold DR (EC2 stopped)</td><td>1 CP</td></tr>
+                        <tr><td><code>k3s-l570</code></td><td>L570 (House A)</td><td>ArgoCD, Grafana, Prometheus</td><td>1 CP</td></tr>
+                        <tr><td><code>k3s-m</code></td><td>Homelab (House A)</td><td>Primary workloads + DB</td><td>1 CP + 2 W</td></tr>
+                        <tr><td><code>k3s-c</code></td><td>Catalin (House B)</td><td>Secondary + DB replica</td><td>1 CP + 2 W</td></tr>
+                        <tr><td><code>k3s-aws</code></td><td>AWS eu-central-1</td><td>Cold DR (stopped)</td><td>1 CP</td></tr>
                     </tbody>
                 </table>
-                <aside class="notes">5 clusters with clear separation of concerns. The L570 is a ThinkPad running two single-node clusters for management. The real workloads run on k3s-m and k3s-c.</aside>
             </section>
 
-            <!-- Slide 8: Network Topology -->
+            <!-- Slide 8: Network -->
             <section>
                 <h2>Network Topology 🌐</h2>
                 <div class="two-col">
                     <div>
-                        <h3 style="font-size: 0.9em;">Inter-site</h3>
+                        <h3>Inter-site</h3>
                         <ul>
                             <li>Tailscale WireGuard mesh</li>
-                            <li>Every node has a 100.x.x.x address</li>
+                            <li>Every node: 100.x.x.x address</li>
                             <li>No port forwarding anywhere</li>
                             <li>Encrypted by default</li>
                         </ul>
                     </div>
                     <div>
-                        <h3 style="font-size: 0.9em;">Local</h3>
+                        <h3>Local VLANs</h3>
                         <ul>
                             <li>VLAN 40: Karmada</li>
                             <li>VLAN 41: k3s-l570</li>
@@ -351,33 +407,21 @@
                     </div>
                 </div>
                 <div class="fragment highlight-box" style="margin-top: 20px;">
-                    <p>🔮 Future: direct fiber between houses for <1ms latency</p>
+                    <p>🔮 Future: direct fiber between houses for &lt;1ms latency</p>
                 </div>
-                <aside class="notes">Tailscale makes the networking trivial. Each node gets a stable IP regardless of location. VLANs isolate traffic on each Proxmox host.</aside>
             </section>
 
             <!-- Slide 9: The Stack -->
-            <section>
+            <section class="center-slide">
                 <h2>The Stack 🧰</h2>
-                <div style="text-align: center;">
-                    <span class="tag">Karmada</span>
-                    <span class="tag">ArgoCD</span>
-                    <span class="tag">Traefik</span>
-                    <span class="tag">CloudNativePG</span>
-                    <span class="tag">Prometheus</span>
-                    <span class="tag">Grafana</span>
-                    <span class="tag">Tailscale</span>
-                    <span class="tag">Terraform</span>
-                    <span class="tag">Ansible</span>
-                    <span class="tag">Cloudflare Tunnels</span>
-                    <span class="tag">External Secrets Operator</span>
-                    <span class="tag">cert-manager</span>
-                    <span class="tag">MetalLB</span>
-                    <span class="tag">k3s</span>
-                    <span class="tag">Proxmox</span>
+                <div style="margin-top: 20px;">
+                    <span class="tag">Karmada</span> <span class="tag">ArgoCD</span> <span class="tag">Traefik</span>
+                    <span class="tag">CloudNativePG</span> <span class="tag">Prometheus</span> <span class="tag">Grafana</span>
+                    <span class="tag">Tailscale</span> <span class="tag">Terraform</span> <span class="tag">Ansible</span>
+                    <span class="tag">Cloudflare Tunnels</span> <span class="tag">ESO</span> <span class="tag">cert-manager</span>
+                    <span class="tag">MetalLB</span> <span class="tag">k3s</span> <span class="tag">Proxmox</span>
                 </div>
-                <p class="fragment" style="margin-top: 30px; text-align: center; color: var(--cncf-accent);">100% open source (except Tailscale coordination server &amp; Cloudflare)</p>
-                <aside class="notes">All CNCF or CNCF-adjacent projects. The beauty is they all work together out of the box with k3s.</aside>
+                <p class="fragment" style="margin-top: 30px; color: var(--text-secondary);">100% open source (except Tailscale coordination &amp; Cloudflare)</p>
             </section>
 
             <!-- Slide 10: GitOps -->
@@ -391,34 +435,29 @@
                 </ul>
                 <pre class="fragment"><code class="language-plaintext">infra-nk/
 ├── terraform/environments/    # Proxmox VMs + AWS EC2
-├── ansible/playbooks/         # k3s + platform install
+├── ansible/playbooks/         # k3s bootstrap
 ├── apps/
-│   ├── argocd-apps/           # App-of-apps definitions
+│   ├── argocd-apps/           # App-of-apps
 │   ├── base/                  # K8s manifests
 │   └── overlays/              # Per-cluster kustomize
-└── .github/workflows/         # CI/CD pipelines</code></pre>
-                <aside class="notes">Everything is declarative. Infrastructure, platform, and application layers — all in one repo, all in Git.</aside>
+└── .github/workflows/         # CI/CD</code></pre>
             </section>
 
-            <!-- Slide 11: Karmada Federation -->
+            <!-- Slide 11: Karmada -->
             <section>
                 <h2>Karmada Federation 🌍</h2>
                 <p>Distribute workloads across clusters with policy-based scheduling</p>
                 <pre class="fragment"><code class="language-yaml">apiVersion: policy.karmada.io/v1alpha1
 kind: PropagationPolicy
 metadata:
-  name: figurines-propagation
+  name: dashboard-propagation
 spec:
-  conflictResolution: Overwrite
   resourceSelectors:
     - apiVersion: apps/v1
       kind: Deployment
-      name: figurines-frontend
   placement:
     clusterAffinity:
-      clusterNames:
-        - k3s-m
-        - k3s-c
+      clusterNames: [k3s-m, k3s-c]
     replicaScheduling:
       replicaSchedulingType: Duplicated
   failover:
@@ -426,8 +465,7 @@ spec:
       decisionConditions:
         tolerationSeconds: 120
       purgeMode: Never</code></pre>
-                <p class="fragment" style="color: var(--cncf-accent);">Duplicated = full copy on each site. Cloudflare handles routing.</p>
-                <aside class="notes">Karmada's PropagationPolicy is the key. Duplicated scheduling means each cluster gets a full deployment. Failover is handled at the DNS/tunnel level by Cloudflare.</aside>
+                <p class="fragment" style="color: var(--accent-gold);">Duplicated = full copy on each site. Cloudflare handles routing.</p>
             </section>
 
             <!-- Slide 12: Cloudflare Tunnels -->
@@ -440,12 +478,9 @@ spec:
                     <li class="fragment">Free tier — no cost</li>
                 </ul>
                 <div class="fragment highlight-box">
-                    <p><strong>How failover works:</strong><br>
-                    Cloudflare sees multiple connectors for the same tunnel.<br>
-                    If one connector goes down → traffic routes to the healthy one automatically.</p>
+                    <p><strong>Failover:</strong> Cloudflare sees multiple connectors for the same tunnel.
+                    If one goes down → traffic routes to the healthy one.</p>
                 </div>
-                <p class="fragment" style="color: var(--cncf-accent);">⚠️ Gotcha: Use separate tunnels per cluster for true DR (more on this later)</p>
-                <aside class="notes">Cloudflare Tunnels are magic for homelabs. No firewall rules, no dynamic DNS, no NAT traversal headaches. The 404 gotcha is real — shared tunnels can conflict.</aside>
             </section>
 
             <!-- Slide 13: CloudNativePG -->
@@ -453,7 +488,7 @@ spec:
                 <h2>CloudNativePG 🐘</h2>
                 <div class="two-col">
                     <div>
-                        <h3 style="font-size: 0.8em;">Primary (k3s-m)</h3>
+                        <h3>Primary (k3s-m)</h3>
                         <ul>
                             <li>Write traffic</li>
                             <li>Streaming replication out</li>
@@ -461,46 +496,37 @@ spec:
                         </ul>
                     </div>
                     <div>
-                        <h3 style="font-size: 0.8em;">Replica (k3s-c)</h3>
+                        <h3>Replica (k3s-c)</h3>
                         <ul>
                             <li>Read-only traffic</li>
                             <li>Hot standby</li>
-                            <li>Promote on primary failure</li>
+                            <li>Promote on failure</li>
                         </ul>
                     </div>
                 </div>
                 <div class="fragment highlight-box" style="margin-top: 20px;">
-                    <p>Cross-site replication over Tailscale WireGuard tunnel<br>
-                    S3 WAL backups = point-in-time recovery for ~$0.50/month</p>
+                    <p>Cross-site replication over Tailscale · S3 WAL backups = PITR for ~$0.50/mo</p>
                 </div>
-                <aside class="notes">CloudNativePG handles Postgres natively in Kubernetes. Streaming replication works beautifully over Tailscale. The S3 WAL backup is our last-resort DR.</aside>
             </section>
 
-            <!-- Slide 14: External Secrets Operator -->
+            <!-- Slide 14: ESO -->
             <section>
                 <h2>External Secrets Operator 🔐</h2>
                 <p>Zero-cost secret management with AWS Parameter Store</p>
-                <pre class="fragment"><code class="language-yaml">apiVersion: external-secrets.io/v1beta1
+                <pre class="fragment"><code class="language-yaml">apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
   name: app-secrets
-  namespace: figurines
 spec:
-  refreshInterval: 1h
+  refreshInterval: 24h
   secretStoreRef:
     name: aws-parameter-store
     kind: ClusterSecretStore
-  target:
-    name: app-secrets
   data:
     - secretKey: DATABASE_URL
       remoteRef:
-        key: /cluster-next-door/figurines/database-url
-    - secretKey: CLOUDFLARE_TOKEN
-      remoteRef:
-        key: /cluster-next-door/cloudflare/tunnel-token</code></pre>
-                <p class="fragment" style="color: var(--cncf-accent);">No more <code>kubectl create secret</code> on every cluster 🎉</p>
-                <aside class="notes">ESO + Parameter Store is completely free and eliminates manual secret management. Secrets sync automatically across all clusters.</aside>
+        key: /nk/my-app/DATABASE_URL</code></pre>
+                <p class="fragment" style="color: var(--accent-gold);">No more <code>kubectl create secret</code> on every cluster 🎉</p>
             </section>
 
             <!-- Slide 15: Monitoring -->
@@ -510,53 +536,39 @@ spec:
                     <li class="fragment">Prometheus scraping all clusters via Tailscale</li>
                     <li class="fragment">PVE Exporter for Proxmox host metrics</li>
                     <li class="fragment">Node Exporter + kube-state-metrics per cluster</li>
-                    <li class="fragment">Grafana with public dashboards</li>
+                    <li class="fragment">Grafana with public dashboards — no login needed</li>
                 </ul>
-                <div class="fragment highlight-box">
-                    <p>🌐 <strong>Live:</strong> <a href="https://grafana.mircea.solutions" style="color: var(--cncf-teal);">grafana.mircea.solutions</a><br>
-                    Public dashboards — no login needed!</p>
-                </div>
-                <aside class="notes">Single Prometheus instance on k3s-l570 reaches across the Tailscale mesh to scrape every node and cluster. Public dashboards let anyone see the cluster health.</aside>
-            </section>
-
-            <!-- Slide 16: Grafana Dashboard -->
-            <section class="center-slide">
-                <h2>Public Dashboards 📈</h2>
-                <p>Kubernetes Overview &bull; Pods Inventory &bull; Node Health</p>
-                <div class="qr-container">
+                <div class="fragment qr-container">
                     <div id="qr-grafana"></div>
+                    <p style="font-size: 0.7em; margin-top: 8px; color: var(--text-secondary);">grafana.mircea.solutions</p>
                 </div>
-                <p style="font-size: 0.7em; color: var(--cncf-accent);">grafana.mircea.solutions/public-dashboards/...</p>
-                <p class="fragment" style="font-size: 0.8em;">Live metrics from all clusters — right now! 🔴</p>
-                <aside class="notes">These are real public Grafana dashboards. Scan the QR or visit the link to see real-time metrics from the clusters running this presentation's demo.</aside>
             </section>
 
-            <!-- Slide 17: Live Demo -->
+            <!-- Slide 16: Live Demo -->
             <section>
                 <h2>Live Demo 🎬</h2>
                 <div class="two-col">
                     <div>
-                        <h3 style="font-size: 0.8em;">Dashboard</h3>
-                        <p><a href="https://dashboard.mircea.solutions" style="color: var(--cncf-teal);">dashboard.mircea.solutions</a></p>
-                        <p style="font-size: 0.7em;">Cluster overview, monitoring links, live status</p>
+                        <h3>Dashboard</h3>
+                        <p><a href="https://dashboard.mircea.solutions">dashboard.mircea.solutions</a></p>
+                        <p style="font-size: 0.75em; color: var(--text-secondary);">Live cluster overview, solar simulation</p>
                     </div>
                     <div>
-                        <h3 style="font-size: 0.8em;">Figurines Store</h3>
-                        <p><a href="https://figurines.mircea.solutions" style="color: var(--cncf-teal);">figurines.mircea.solutions</a></p>
-                        <p style="font-size: 0.7em;">3D printed figurines catalog<br>(Catalin's art!)</p>
+                        <h3>Figurines</h3>
+                        <p><a href="https://figurines.mircea.solutions">figurines.mircea.solutions</a></p>
+                        <p style="font-size: 0.75em; color: var(--text-secondary);">3D printed miniatures gallery (Catalin's art)</p>
                     </div>
                 </div>
-                <div class="fragment highlight-box" style="margin-top: 30px;">
-                    <p>Both apps run on <strong>k3s-m</strong> and <strong>k3s-c</strong> simultaneously.<br>
+                <div class="fragment highlight-box" style="margin-top: 25px;">
+                    <p>Both apps run on <strong>k3s-m</strong> and <strong>k3s-c</strong> simultaneously.
                     Cloudflare routes to whichever site is healthy.</p>
                 </div>
-                <aside class="notes">Time for the live demo! Let's visit both sites and show how they're running across two physical locations.</aside>
             </section>
 
-            <!-- Slide 18: Failover Demo -->
+            <!-- Slide 17: Failover -->
             <section>
                 <h2>Failover Demo 🔥</h2>
-                <p style="font-size: 1em;">What happens when House A goes down?</p>
+                <p>What happens when House A goes down?</p>
                 <ol>
                     <li class="fragment">Cloudflare detects connector failure (~30s)</li>
                     <li class="fragment">Traffic routes to House B connector</li>
@@ -564,42 +576,37 @@ spec:
                     <li class="fragment">Karmada marks cluster as NotReady (~120s)</li>
                     <li class="fragment">When House A returns → traffic rebalances</li>
                 </ol>
-                <p class="fragment" style="color: var(--cncf-teal); font-size: 1em; margin-top: 20px;">🎯 RTO: ~30 seconds | RPO: 0 (active-active)</p>
-                <aside class="notes">The real magic — let's pull the power on one site and watch Cloudflare failover in real-time. RTO is about 30 seconds, RPO is zero because both sites are active.</aside>
+                <p class="fragment" style="color: var(--accent-gold); font-size: 1em; margin-top: 20px;">🎯 RTO: ~30s | RPO: 0 (active-active)</p>
             </section>
 
-            <!-- Slide 19: What Went Wrong -->
+            <!-- Slide 18: What Went Wrong -->
             <section>
                 <h2>What Went Wrong 💥</h2>
                 <ul>
-                    <li class="fragment"><strong style="color: white;">Karmada <code>operator: add</code></strong> — doesn't append, it <em>replaces</em>. Lost env vars on multiple deploys before figuring this out.</li>
-                    <li class="fragment"><strong style="color: white;">Cloudflared shared tunnel 404s</strong> — two clusters sharing one tunnel token causes route conflicts. Random 404s that are impossible to debug.</li>
-                    <li class="fragment"><strong style="color: white;">LXC → VM migration</strong> — started with LXC containers, but k3s needs kernel features that LXC doesn't provide cleanly. Had to rebuild everything as VMs.</li>
-                    <li class="fragment"><strong style="color: white;">Manual secrets</strong> — <code>kubectl create secret</code> on 4 clusters is not fun. ESO fixed this.</li>
+                    <li class="fragment"><strong>Karmada <code>operator: add</code></strong> — replaces, doesn't append. Lost env vars.</li>
+                    <li class="fragment"><strong>Shared tunnel 404s</strong> — 3 connectors, only 1 has all Ingresses. Random 404s.</li>
+                    <li class="fragment"><strong>LXC → VM</strong> — k3s needs kernel features LXC can't provide. Rebuilt everything.</li>
+                    <li class="fragment"><strong>Manual secrets</strong> — <code>kubectl create secret</code> on 4 clusters. ESO fixed this.</li>
                 </ul>
-                <aside class="notes">Lessons from production. The Karmada add operator is particularly sneaky — the name implies append but it actually replaces. Cost me hours of debugging.</aside>
             </section>
 
-            <!-- Slide 20: What I'd Do Differently -->
+            <!-- Slide 19: Do Differently -->
             <section>
                 <h2>What I'd Do Differently 🔄</h2>
                 <ul>
-                    <li class="fragment">✅ Start with ESO from day 1 (secrets across clusters are painful)</li>
-                    <li class="fragment">✅ Separate Cloudflare tunnels per cluster from the start</li>
-                    <li class="fragment">✅ VMs over LXCs for k3s (save the debugging time)</li>
-                    <li class="fragment">✅ Set <code>conflictResolution: Overwrite</code> in every PropagationPolicy</li>
-                    <li class="fragment">✅ Public Grafana dashboards need panel IDs — plan JSON structure early</li>
+                    <li class="fragment">✅ Start with ESO from day 1</li>
+                    <li class="fragment">✅ Separate Cloudflare tunnels per cluster</li>
+                    <li class="fragment">✅ VMs over LXCs for k3s</li>
+                    <li class="fragment">✅ <code>conflictResolution: Overwrite</code> in every PropagationPolicy</li>
+                    <li class="fragment">✅ Plan Grafana dashboard JSON structure early (panel IDs matter)</li>
                 </ul>
-                <aside class="notes">If I started over today, these are the things I'd do from the beginning. Each one cost me at least half a day of debugging.</aside>
             </section>
 
-            <!-- Slide 21: Cost Breakdown -->
+            <!-- Slide 20: Cost -->
             <section>
                 <h2>Total Monthly Cost 🧮</h2>
                 <table class="cost-table">
-                    <thead>
-                        <tr><th>Service</th><th>What</th><th>Cost</th></tr>
-                    </thead>
+                    <thead><tr><th>Service</th><th>What</th><th>Cost</th></tr></thead>
                     <tbody>
                         <tr><td>AWS EC2</td><td>Stopped (DR only)</td><td>$0</td></tr>
                         <tr><td>Cloudflare</td><td>Tunnels + DNS (free tier)</td><td>$0</td></tr>
@@ -607,87 +614,58 @@ spec:
                         <tr><td>AWS Parameter Store</td><td>Standard tier (free)</td><td>$0</td></tr>
                         <tr><td>Tailscale</td><td>Free tier (personal)</td><td>$0</td></tr>
                         <tr><td>Domains</td><td>mircea.solutions</td><td>~$1/mo</td></tr>
-                        <tr><td colspan="2" style="text-align: right; font-size: 1.1em;"><strong>Total</strong></td><td style="font-size: 1.3em;">~$1.50/mo</td></tr>
+                        <tr><td colspan="2" style="text-align: right;"><strong>Total</strong></td><td style="font-size: 1.2em;">~$1.50/mo</td></tr>
                     </tbody>
                 </table>
-                <p class="fragment" style="text-align: center; color: var(--cncf-teal); font-size: 1em;">That's less than a coffee ☕</p>
-                <aside class="notes">The total cloud spend is under $2 per month. Everything else runs on hardware we already own, powered partially by solar. Compare this to even a minimal cloud HA setup.</aside>
+                <p class="fragment" style="text-align: center; color: var(--accent-gold);">That's less than a coffee ☕</p>
             </section>
 
-            <!-- Slide 22: Giveaway -->
+            <!-- Slide 21: Giveaway -->
             <section class="center-slide">
                 <h2>🎁 Giveaway!</h2>
-                <p style="font-size: 0.9em;">Scan the QR code and submit your idea:<br><strong style="color: white;">What should we deploy next on the cluster?</strong></p>
+                <p style="font-size: 0.95em;">Submit your idea: <strong>What should we deploy next?</strong></p>
                 <div class="qr-container">
                     <div id="qr-giveaway"></div>
                 </div>
-                <p style="color: var(--cncf-teal); font-size: 0.9em;">Winner gets a 3D printed figurine from Catalin! 🎨</p>
-                <p style="font-size: 0.7em; color: var(--cncf-accent);">giveaway.mircea.solutions</p>
-                <aside class="notes">Audience participation time! Scan the QR, tell us what you'd like to see running on the cluster. Best idea wins one of Catalin's 3D printed figurines.</aside>
+                <p style="color: var(--accent-gold); font-size: 0.95em;">Winner gets a 3D printed Iron Man from Catalin! 🦾</p>
+                <p style="font-size: 0.75em; color: var(--text-secondary);">giveaway.mircea.solutions</p>
             </section>
 
-            <!-- Slide 23: Links & Resources -->
+            <!-- Slide 22: Links -->
             <section>
                 <h2>Links & Resources 🔗</h2>
                 <div class="two-col">
                     <div>
-                        <ul class="links-list">
-                            <li>📦 <a href="https://github.com/mirceaadam/cluster-next-door">GitHub: cluster-next-door</a></li>
-                            <li>🖥️ <a href="https://dashboard.mircea.solutions">dashboard.mircea.solutions</a></li>
-                            <li>📊 <a href="https://grafana.mircea.solutions">grafana.mircea.solutions</a></li>
-                            <li>🎨 <a href="https://figurines.mircea.solutions">figurines.mircea.solutions</a></li>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding: 6px 0;">📦 <a href="https://github.com/mirceaadam/cluster-next-door">GitHub: cluster-next-door</a></li>
+                            <li style="padding: 6px 0;">🖥️ <a href="https://dashboard.mircea.solutions">dashboard.mircea.solutions</a></li>
+                            <li style="padding: 6px 0;">📊 <a href="https://grafana.mircea.solutions">grafana.mircea.solutions</a></li>
+                            <li style="padding: 6px 0;">🎨 <a href="https://figurines.mircea.solutions">figurines.mircea.solutions</a></li>
+                            <li style="padding: 6px 0;">🎁 <a href="https://giveaway.mircea.solutions">giveaway.mircea.solutions</a></li>
                         </ul>
                     </div>
                     <div class="qr-container">
                         <div id="qr-slides"></div>
-                        <p style="font-size: 0.6em; margin-top: 10px;">These slides</p>
+                        <p style="font-size: 0.65em; margin-top: 8px; color: var(--text-secondary);">These slides</p>
                     </div>
                 </div>
-                <div style="margin-top: 20px; text-align: center;">
-                    <span class="tag">Karmada Docs</span>
-                    <span class="tag">CloudNativePG</span>
-                    <span class="tag">Cloudflare Tunnels</span>
-                    <span class="tag">External Secrets</span>
-                    <span class="tag">Tailscale</span>
-                </div>
-                <aside class="notes">All the links you need. The cluster-next-door repo is public — feel free to explore, star, and contribute ideas.</aside>
             </section>
 
-            <!-- Slide 24: Thank You -->
+            <!-- Slide 23: Thank You -->
             <section class="center-slide">
                 <p class="emoji-large">🙏</p>
                 <h2>Thank You!</h2>
-                <p style="font-size: 1em;">Questions?</p>
+                <p style="font-size: 1.1em;">Questions?</p>
                 <br>
-                <p style="font-size: 0.8em; color: var(--cncf-light);">Mircea Adam</p>
-                <p style="font-size: 0.7em;">
-                    <a href="https://github.com/mirceaadam" style="color: var(--cncf-accent);">github.com/mirceaadam</a> &bull;
-                    <a href="https://mircea.solutions" style="color: var(--cncf-accent);">mircea.solutions</a>
+                <p style="color: var(--text-secondary);">Mircea Adam</p>
+                <p style="font-size: 0.8em;">
+                    <a href="https://github.com/mirceaadam">github.com/mirceaadam</a> &bull;
+                    <a href="https://mircea.solutions">mircea.solutions</a>
                 </p>
                 <br>
-                <p style="font-size: 0.7em; color: var(--cncf-accent);">CNCF Timisoara 💙</p>
-                <aside class="notes">Thank you everyone! Happy to answer questions about any part of the setup. The repo is public so you can follow along and build your own cluster next door.</aside>
+                <p style="font-size: 0.75em; color: var(--text-secondary);">CNCF Timisoara 💙</p>
             </section>
 
-        </div>
-    </div>
-
-    <!-- Live Giveaway Bar -->
-    <div id="giveaway-bar">
-        <div class="bar-section">
-            <span class="bar-pulse"></span>
-            <span class="bar-label">Live</span>
-        </div>
-        <div class="bar-divider"></div>
-        <div class="bar-section">
-            <span class="bar-label">Ideas:</span>
-            <span class="bar-value" id="bar-total">—</span>
-        </div>
-        <div class="bar-divider"></div>
-        <div class="bar-section bar-hot">
-            <span class="bar-label">🔥 Hot:</span>
-            <span class="hot-title" id="bar-hot-idea">loading...</span>
-            <span class="bar-value" id="bar-hot-votes"></span>
         </div>
     </div>
 
@@ -701,49 +679,41 @@ spec:
             transition: 'slide',
             backgroundTransition: 'fade',
             center: true,
+            width: '100%',
+            height: '100%',
+            margin: 0.04,
             plugins: [RevealNotes, RevealHighlight]
         });
 
-        // Generate QR codes after DOM is ready
+        // Generate QR codes
         document.addEventListener('DOMContentLoaded', function() {
-            // Giveaway QR
             if (document.getElementById('qr-giveaway')) {
                 new QRCode(document.getElementById('qr-giveaway'), {
                     text: 'https://giveaway.mircea.solutions',
-                    width: 250,
-                    height: 250,
-                    colorDark: '#1a1a2e',
-                    colorLight: '#ffffff',
+                    width: 220, height: 220,
+                    colorDark: '#0a0a0a', colorLight: '#ffffff',
                     correctLevel: QRCode.CorrectLevel.H
                 });
             }
-
-            // Grafana QR
             if (document.getElementById('qr-grafana')) {
                 new QRCode(document.getElementById('qr-grafana'), {
                     text: 'https://grafana.mircea.solutions',
-                    width: 180,
-                    height: 180,
-                    colorDark: '#1a1a2e',
-                    colorLight: '#ffffff',
+                    width: 160, height: 160,
+                    colorDark: '#0a0a0a', colorLight: '#ffffff',
                     correctLevel: QRCode.CorrectLevel.M
                 });
             }
-
-            // Slides QR
             if (document.getElementById('qr-slides')) {
                 new QRCode(document.getElementById('qr-slides'), {
                     text: 'https://mirceaadam.github.io/cluster-next-door',
-                    width: 150,
-                    height: 150,
-                    colorDark: '#1a1a2e',
-                    colorLight: '#ffffff',
+                    width: 140, height: 140,
+                    colorDark: '#0a0a0a', colorLight: '#ffffff',
                     correctLevel: QRCode.CorrectLevel.M
                 });
             }
         });
 
-        // Live Giveaway Bar — polls /api/ideas every 15 seconds
+        // Live Giveaway Bar — polls every 15 seconds
         async function updateGiveawayBar() {
             try {
                 const resp = await fetch('https://giveaway.mircea.solutions/api/ideas', {
@@ -751,25 +721,18 @@ spec:
                 });
                 if (!resp.ok) return;
                 const data = await resp.json();
-
                 document.getElementById('bar-total').textContent = data.total || 0;
-
                 if (data.ideas && data.ideas.length > 0) {
-                    // Sort by vote_count descending, pick the top one
                     const sorted = [...data.ideas].sort((a, b) => b.vote_count - a.vote_count);
                     const hot = sorted[0];
                     document.getElementById('bar-hot-idea').textContent = hot.title;
-                    document.getElementById('bar-hot-votes').textContent = hot.vote_count > 0 ? `(${hot.vote_count} ▲)` : '';
+                    document.getElementById('bar-hot-votes').textContent = hot.vote_count > 0 ? '(' + hot.vote_count + ' ▲)' : '';
                 } else {
-                    document.getElementById('bar-hot-idea').textContent = 'no ideas yet — scan QR to be first!';
+                    document.getElementById('bar-hot-idea').textContent = 'no ideas yet — be the first!';
                     document.getElementById('bar-hot-votes').textContent = '';
                 }
-            } catch (e) {
-                // Silently ignore errors — keep last known values
-            }
+            } catch (e) { /* keep last values */ }
         }
-
-        // Initial fetch + interval
         updateGiveawayBar();
         setInterval(updateGiveawayBar, 15000);
     </script>
