@@ -13,23 +13,33 @@
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
     <style>
         :root {
-            --bg-primary: #06060c;
-            --bg-card: rgba(18, 18, 26, 0.75);
-            --border: rgba(255, 255, 255, 0.06);
-            --text-primary: #f5f5f7;
-            --text-secondary: #8e8e93;
-            --accent-gold: #0a84ff;
-            --accent-gold-end: #5eadff;
-            --accent-glow: rgba(10, 132, 255, 0.25);
-            --success: #30d158;
-            --radius: 12px;
+            --bg-primary: #050508;
+            --bg-card: rgba(20, 20, 28, 0.5);
+            --border: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(0, 242, 254, 0.3);
+            --text-primary: #f8f9fa;
+            --text-secondary: #a0aab2;
+            --accent-cyan: #00f2fe;
+            --accent-pink: #fe0979;
+            --accent-purple: #8a2387;
+            --accent-gold: #00f2fe;
+            --accent-gold-end: #4facfe;
+            --success: #00ff88;
+            --radius: 16px;
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
         }
 
         body {
             background: var(--bg-primary);
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center center;
             margin: 0;
             padding: 0;
             overflow: hidden;
+            font-family: 'Inter', sans-serif;
         }
 
         /* Animated glow orbs background */
@@ -44,59 +54,79 @@
             position: absolute;
             border-radius: 50%;
             filter: blur(120px);
-            opacity: 0.1;
+            opacity: 0.35;
             mix-blend-mode: screen;
         }
         .orb-1 {
             top: -10%; left: -5%;
             width: 50vw; height: 50vw;
-            background: radial-gradient(circle, #8a2387 0%, transparent 70%);
-            animation: float1 25s ease infinite alternate;
+            background: radial-gradient(circle, var(--accent-purple) 0%, transparent 60%);
+            animation: float1 25s ease-in-out infinite alternate;
         }
         .orb-2 {
             bottom: -10%; right: -5%;
-            width: 40vw; height: 40vw;
-            background: radial-gradient(circle, #0a84ff 0%, transparent 70%);
-            animation: float2 30s ease infinite alternate;
+            width: 55vw; height: 55vw;
+            background: radial-gradient(circle, var(--accent-cyan) 0%, transparent 60%);
+            animation: float2 30s ease-in-out infinite alternate;
+        }
+        .orb-3 {
+            top: 30%; left: 40%;
+            width: 45vw; height: 45vw;
+            background: radial-gradient(circle, rgba(254, 9, 121, 0.25) 0%, transparent 60%);
+            animation: float3 20s ease-in-out infinite alternate;
         }
         @keyframes float1 {
             0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(-80px, 50px) scale(1.1); }
+            100% { transform: translate(-100px, 80px) scale(1.1); }
         }
         @keyframes float2 {
             0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(100px, -60px) scale(1.15); }
+            100% { transform: translate(120px, -80px) scale(1.15); }
+        }
+        @keyframes float3 {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(-60px, -60px) scale(1.05); }
         }
 
-        /* Top status bar */
+        /* Floating Pill Status Bar */
         #giveaway-bar {
             position: fixed;
-            top: 0; left: 0; right: 0;
-            height: 74px;
-            background: rgba(18, 18, 26, 0.9);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid var(--border);
+            top: 24px; left: 50%;
+            transform: translateX(-50%);
+            height: 54px;
+            background: rgba(15, 15, 20, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255,255,255,0.05);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 30px;
+            gap: 24px;
             font-family: 'Inter', sans-serif;
-            font-size: 1.38rem;
+            font-size: 1rem;
             z-index: 1000;
             padding: 0 32px;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+        #giveaway-bar:hover {
+            border-color: rgba(0, 242, 254, 0.4);
+            box-shadow: 0 8px 32px rgba(0, 242, 254, 0.15), inset 0 0 0 1px rgba(255,255,255,0.08);
+            transform: translateX(-50%) translateY(-2px);
         }
         #giveaway-bar .bar-section {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             color: var(--text-secondary);
         }
         #giveaway-bar .bar-label {
-            opacity: 0.7;
-            font-size: 1.26rem;
+            font-size: 0.95rem;
         }
         #giveaway-bar .bar-value {
-            color: var(--accent-gold);
+            color: var(--accent-cyan);
             font-weight: 600;
         }
         #giveaway-bar .bar-hot .hot-title {
@@ -105,24 +135,29 @@
         }
         #giveaway-bar .bar-divider {
             width: 1px;
-            height: 28px;
+            height: 24px;
             background: rgba(255,255,255,0.1);
         }
         #giveaway-bar .bar-pulse {
-            width: 11px; height: 11px;
+            width: 10px; height: 10px;
             border-radius: 50%;
             background: var(--success);
-            box-shadow: 0 0 10px var(--success);
+            box-shadow: 0 0 12px var(--success);
             animation: pulse-dot 2s infinite;
         }
         #giveaway-bar .bar-link {
-            color: var(--accent-gold);
+            color: var(--accent-cyan);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+        #giveaway-bar .bar-link:hover {
+            color: #fff;
+            text-shadow: 0 0 8px rgba(0,242,254,0.5);
         }
         @keyframes pulse-dot {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; box-shadow: 0 0 12px var(--success); }
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; box-shadow: 0 0 16px var(--success); }
         }
 
         /* Reveal.js overrides for full-screen dark design */
@@ -144,111 +179,251 @@
         }
         .reveal h1, .reveal h2, .reveal h3 {
             font-family: 'Outfit', sans-serif;
-            color: var(--accent-gold);
             text-transform: none;
-            font-weight: 600;
+            font-weight: 700;
             text-shadow: none;
+            letter-spacing: -0.02em;
         }
-        .reveal h1 { font-size: 2.8em; }
-        .reveal h2 { font-size: 1.8em; margin-bottom: 0.6em; }
-        .reveal h3 { font-size: 1.1em; color: var(--accent-gold-end); }
+        .reveal h1 { 
+            font-size: 3.6em; 
+            background: linear-gradient(135deg, #fff 0%, #a0aab2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.3em;
+        }
+        .reveal h2 { 
+            font-size: 2.2em; 
+            margin-bottom: 0.8em; 
+            background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .reveal h3 { 
+            font-size: 1.3em; 
+            color: var(--accent-cyan);
+            background: none;
+            -webkit-text-fill-color: var(--accent-cyan);
+        }
         .reveal p, .reveal li {
             color: var(--text-primary);
-            font-size: 0.88em;
-            line-height: 1.7;
+            font-size: 0.95em;
+            line-height: 1.6;
         }
-        .reveal li { margin-bottom: 0.4em; }
-        .reveal strong { color: #fff; }
-        .reveal a { color: var(--accent-gold); text-decoration: none; }
-        .reveal a:hover { text-decoration: underline; }
+        .reveal li { margin-bottom: 0.6em; }
+        .reveal strong { color: #fff; font-weight: 600; }
+        .reveal a { 
+            color: var(--accent-cyan); 
+            text-decoration: none; 
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+        .reveal a:hover { border-color: var(--accent-cyan); text-decoration: none; }
 
         .reveal .highlight-box {
-            background: rgba(10, 132, 255, 0.05);
-            border-left: 3px solid var(--accent-gold);
-            padding: 14px 20px;
-            margin: 18px 0;
-            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-left: 4px solid var(--accent-cyan);
+            padding: 24px 32px;
+            margin: 24px 0;
+            border-radius: 16px;
+            box-shadow: var(--glass-shadow);
+            position: relative;
+            overflow: hidden;
         }
+        .reveal .highlight-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 100%;
+            background: linear-gradient(90deg, rgba(0,242,254,0.05) 0%, transparent 100%);
+            pointer-events: none;
+        }
+        .reveal .highlight-box p { margin: 0; font-size: 1.05em; }
+
         .reveal table {
-            font-size: 0.72em;
-            border-collapse: collapse;
+            font-size: 0.75em;
+            border-collapse: separate;
+            border-spacing: 0;
             width: 100%;
-            margin: 18px 0;
+            margin: 24px 0;
+            background: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(12px);
+            box-shadow: var(--glass-shadow);
         }
         .reveal table th {
-            background: rgba(10, 132, 255, 0.12);
-            color: var(--accent-gold);
-            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--accent-cyan);
+            padding: 16px 24px;
             text-align: left;
-            border-bottom: 1px solid rgba(10, 132, 255, 0.25);
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
         .reveal table td {
-            padding: 8px 14px;
-            border-bottom: 1px solid var(--border);
+            padding: 14px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
             color: var(--text-primary);
         }
+        .reveal table tr:last-child td { border-bottom: none; }
+        .reveal table tr:hover td { background: rgba(255, 255, 255, 0.03); }
+
         .reveal code {
-            color: var(--accent-gold);
+            color: var(--accent-pink);
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.88em;
+            background: rgba(255,255,255,0.05);
+            padding: 2px 6px;
+            border-radius: 6px;
         }
         .reveal pre {
             width: 100%;
-            font-size: 0.52em;
-            box-shadow: none;
-            background: rgba(10, 10, 10, 0.8);
-            border-radius: var(--radius);
+            font-size: 0.55em;
+            box-shadow: var(--glass-shadow);
+            background: rgba(10, 10, 15, 0.85) !important;
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
             border: 1px solid var(--border);
+            position: relative;
+            margin: 24px 0;
+        }
+        .reveal pre::before {
+            content: '/// code';
+            display: block;
+            padding: 8px 20px;
+            background: rgba(255,255,255,0.03);
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1em;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
         .reveal pre code {
             color: var(--text-primary);
-            padding: 18px;
+            padding: 24px;
             font-family: 'JetBrains Mono', monospace;
+            background: transparent;
         }
-        .reveal .emoji-large { font-size: 3em; margin: 15px 0; }
+        
+        .reveal .emoji-large { font-size: 4em; margin: 15px 0; animation: bounce 2s infinite; }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+
         .reveal .ascii-art {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.48em;
             line-height: 1.4;
-            color: var(--text-secondary);
+            color: var(--accent-cyan);
             text-align: center;
+            text-shadow: 0 0 10px rgba(0,242,254,0.3);
         }
+        
         .reveal .qr-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 18px 0;
+            margin: 24px 0;
         }
         .reveal .qr-container > div {
-            padding: 14px;
-            background: white;
-            border-radius: var(--radius);
+            padding: 16px;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            background-clip: padding-box;
+            transition: transform 0.3s ease;
         }
+        .reveal .qr-container > div:hover {
+            transform: scale(1.05);
+        }
+
         .reveal .two-col {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            align-items: start;
+            gap: 40px;
+            align-items: stretch;
+            margin-top: 20px;
         }
+        .reveal .two-col > div {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 32px;
+            backdrop-filter: blur(12px);
+            box-shadow: var(--glass-shadow);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .reveal .two-col > div:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        .reveal .two-col.no-bg > div {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            backdrop-filter: none;
+            padding: 0;
+        }
+        .reveal .two-col.no-bg > div:hover {
+            transform: none;
+        }
+
         .reveal .tag {
             display: inline-block;
-            background: rgba(10, 132, 255, 0.08);
-            border: 1px solid rgba(10, 132, 255, 0.3);
-            color: var(--accent-gold);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.6em;
-            margin: 3px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--accent-cyan);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 0.65em;
+            margin: 6px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
         }
+        .reveal .tag:hover {
+            background: rgba(0, 242, 254, 0.1);
+            border-color: rgba(0, 242, 254, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 242, 254, 0.2);
+            color: #fff;
+        }
+
         .reveal .cost-table td:last-child {
-            color: var(--accent-gold);
+            color: var(--accent-cyan);
             font-weight: 600;
+            font-size: 1.1em;
         }
+        
         .title-slide { text-align: center !important; }
-        .title-slide h1 { font-family: 'Tomorrow', sans-serif; font-size: 3em !important; margin-bottom: 0.2em; }
+        .title-slide h1 { 
+            font-family: 'Tomorrow', sans-serif; 
+            font-size: 4em !important; 
+            margin-bottom: 0.2em; 
+            background: linear-gradient(135deg, #fff 0%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 40px rgba(0,242,254,0.3);
+        }
         .center-slide { text-align: center !important; }
+        
         .reveal .fragment.current-visible.visible:not(.current-fragment) {
             display: none;
+        }
+        
+        /* Modern image styling */
+        .reveal img {
+            border-radius: 20px;
+            box-shadow: var(--glass-shadow);
+            border: 1px solid var(--border);
         }
     </style>
 </head>
@@ -257,6 +432,7 @@
     <div class="glow-bg">
         <div class="glow-orb orb-1"></div>
         <div class="glow-orb orb-2"></div>
+        <div class="glow-orb orb-3"></div>
     </div>
 
     <!-- Top Status Bar -->
@@ -265,6 +441,23 @@
             <span class="bar-pulse"></span>
             <span class="bar-label">Live</span>
         </div>
+        <div class="bar-divider"></div>
+        <div class="bar-section">
+            <span class="bar-label">Ideas:</span>
+            <span class="bar-value" id="bar-total">—</span>
+        </div>
+        <div class="bar-divider"></div>
+        <div class="bar-section bar-hot">
+            <span class="bar-label">🔥</span>
+            <span class="hot-title" id="bar-hot-idea">loading...</span>
+            <span class="bar-value" id="bar-hot-votes"></span>
+        </div>
+        <div class="bar-divider"></div>
+        <div class="bar-section">
+            <a href="https://giveaway.mircea.solutions" target="_blank" class="bar-link">giveaway.mircea.solutions</a>
+            <span class="bar-label" style="opacity: 0.7;">← submit your ideas here</span>
+        </div>
+    </div>
         <div class="bar-divider"></div>
         <div class="bar-section">
             <span class="bar-label">Ideas:</span>
@@ -336,7 +529,7 @@
                 <h2>Obvious Question.. 🤔</h2>
                 <img class="fragment" src="img/crysis.jpg" alt="But can it run Crysis?!" style="max-width: 70%; border-radius: 12px; margin-top: 20px; box-shadow: 0 4px 30px rgba(0,0,0,0.5);">
                 <p class="fragment" style="font-size: 1.8em; margin-top: 30px;">
-                    <strong>Does it run </strong>
+                    <strong>BUT CAN IT RUN </strong>
                     <img src="https://www.proxmox.com/images/proxmox/Proxmox_symbol_standard_hex.png" alt="Proxmox" style="height: 1.1em; vertical-align: middle; margin: 0 6px;">
                     <strong>PROXMOX ?!</strong>
                 </p>
