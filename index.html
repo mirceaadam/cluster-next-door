@@ -433,8 +433,8 @@
             text-align: center !important;
         }
         .reveal .diagram-slide img {
-            max-width: 85%;
-            max-height: 70vh;
+            max-width: 90%;
+            max-height: 80vh;
             object-fit: contain;
             border-radius: 16px;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -500,7 +500,7 @@
                 <p style="font-size: 1.1em; color: var(--accent-gold);">giveaway.mircea.solutions</p>
             </section>
 
-            <!-- Slide 2: Some sort of a plan.. -->
+            <!-- Slide 3: Purpose -->
             <section class="center-slide">
                 <h2>Purpuse.</h2>
                 <ul>
@@ -510,15 +510,9 @@
                     <li class="fragment"> - we homelabing</li>
                     <li class="fragment"> - ...fix my/our vitamin K deficency (K8s, K3s, Karmada, Karpenter etc..)</li>
                 </ul>
-            </section>  
-
-            <!-- Diagram: Project Context -->
-            <section class="diagram-slide" data-transition="fade">
-                <h2>Project Context 🗺️</h2>
-                <img src="draw.io/00-Project-Context.drawio.png" alt="Project Context Overview">
             </section>
 
-            <!-- Slide 3: About Me -->
+            <!-- Slide 4: About Me -->
             <section>
                 <h2>About Me 👋</h2>
                 <p><strong style="font-size: 1.1em;">Mircea Adam</strong></p>
@@ -530,34 +524,42 @@
                 <aside class="notes">Quick intro — I'm a platform engineer who believes you don't need a cloud bill to run production workloads.</aside>
             </section>
 
-            <!-- Diagram: Meet The Hardware -->
-            <section class="diagram-slide" data-transition="fade">
-                <h2>Meet the Hardware 🖥️</h2>
-                <img src="draw.io/01-Meet-The-HardWare.drawio.png" alt="Meet The Hardware">
-            </section>
-
-            <!-- Slide 2.5: Meet the Hardware (specs table) -->
-            <section data-transition="fade">
-                <h2>Meet the Hardware 🖥️</h2>
+            <!-- Slide 5: Cluster Roles & Locations -->
+            <section>
+                <h2>The Setup 🏠</h2>
                 <table>
-                    <thead><tr><th>Host</th><th>CPU</th><th>RAM</th><th>Role</th></tr></thead>
+                    <thead><tr><th>Cluster</th><th>Location</th><th>Role</th></tr></thead>
                     <tbody>
-                        <tr><td>ThinkPad L570</td><td>i5-6300U (2C/4T)</td><td>12 GB</td><td>Karmada + shared services</td></tr>
-                        <tr><td>Homelab Desktop</td><td>i3-13100 (4C/8T)</td><td>64 GB</td><td>Primary workloads + DB</td></tr>
-                        <tr><td>Catalin's Desktop</td><td>i5-8500T (6C/6T)</td><td>32 GB</td><td>Secondary site</td></tr>
-                        <tr><td>AWS EC2 t3.small</td><td>2 vCPU</td><td>2 GB</td><td>Cold DR (stopped)</td></tr>
+                        <tr><td><code>k3s-karmada</code></td><td>House A (Mircea)</td><td>Federation control plane</td></tr>
+                        <tr><td><code>k3s-l570</code></td><td>House A (Mircea)</td><td>ArgoCD, Grafana, Prometheus</td></tr>
+                        <tr><td><code>k3s-m</code></td><td>House A (Mircea)</td><td>Primary workloads + DB</td></tr>
+                        <tr><td><code>k3s-c</code></td><td>House B (Catalin)</td><td>Secondary + DB replica</td></tr>
+                        <tr><td><code>k3s-aws</code></td><td>AWS eu-central-1</td><td>Cold DR (stopped)</td></tr>
                     </tbody>
                 </table>
                 <p class="fragment" style="color: var(--text-secondary); font-size: 0.8em; margin-top: 15px;">All on-prem nodes run as Proxmox VMs · Solar powered ☀️ · Total cost of hardware: ~€200 (used market)</p>
             </section>
 
-            <!-- Diagram: Hardware Specs Detail -->
+            <!-- ═══════════════════════════════════════════════════════════ -->
+            <!-- ARCHITECTURE DIAGRAM PROGRESSION (fade between all images) -->
+            <!-- ═══════════════════════════════════════════════════════════ -->
+
+            <!-- 00: Project Context -->
             <section class="diagram-slide" data-transition="fade">
-                <h2>Hardware Specs 📊</h2>
+                <img src="draw.io/00-Project-Context.drawio.png" alt="Project Context Overview">
+            </section>
+
+            <!-- 01: Meet The Hardware -->
+            <section class="diagram-slide" data-transition="fade">
+                <img src="draw.io/01-Meet-The-HardWare.drawio.png" alt="Meet The Hardware">
+            </section>
+
+            <!-- 02: Hardware Specs -->
+            <section class="diagram-slide" data-transition="fade">
                 <img src="draw.io/02-Meet-The-HardWare-specs.drawio.png" alt="Hardware Specifications">
             </section>
 
-            <!-- Slide 5: The Idea -->
+            <!-- Crysis Joke (interrupts the image flow) -->
             <section class="center-slide" data-transition="fade">
                 <h2>Obvious Question.. 🤔</h2>
                 <img class="fragment" src="img/crysis.jpg" alt="But can it run Crysis?!" style="max-width: 70%; border-radius: 12px; margin-top: 20px; box-shadow: 0 4px 30px rgba(0,0,0,0.5);">
@@ -569,121 +571,51 @@
                 <aside class="notes">Build up the joke — Crysis is the classic, but what we really care about is: can it run Proxmox and virtualize everything?</aside>
             </section>
 
-            <!-- Diagram: Can It Run Proxmox (answer) -->
+            <!-- 03: Can It Run Proxmox (answer) -->
             <section class="diagram-slide" data-transition="fade">
-                <h2>Yes, it can! ✅</h2>
                 <img src="draw.io/03-can-it-run-proxmox.drawio.png" alt="Can it run Proxmox - Yes!">
             </section>
 
-            <!-- Slide 4: The Problem -->
-            <section>
-                <h2>High Availability is Expensive 💸</h2>
-                <ul>
-                    <li class="fragment">Multi-AZ EKS: ~$150-300/month minimum</li>
-                    <li class="fragment">Multi-region: 2-3x that cost</li>
-                    <li class="fragment">DR patterns assume cloud-native = cloud-hosted</li>
-                    <li class="fragment">Small teams can't justify the spend</li>
-                </ul>
-                <div class="fragment highlight-box">
-                    <p>Enterprise HA patterns weren't designed for homelabbers.</p>
-                </div>
-            </section>
-
-            <!-- Slide 5: What if differently -->
-            <section>
-                <h2>What if we did it differently? ⚡</h2>
-                <ul>
-                    <li class="fragment">☀️ Solar-powered nodes (daytime compute is free)</li>
-                    <li class="fragment">♻️ Recycled enterprise hardware (ThinkPads, servers)</li>
-                    <li class="fragment">🔌 Tailscale mesh between houses (no port forwarding)</li>
-                    <li class="fragment">☁️ AWS as cold DR only (EC2 stopped = $0)</li>
-                </ul>
-                <p class="fragment" style="color: var(--accent-gold); font-size: 1.1em; margin-top: 25px;"><strong>Total monthly cost: ~$1.50</strong></p>
-            </section>
-
-            <!-- Diagram: Location -->
+            <!-- 04: Location -->
             <section class="diagram-slide" data-transition="fade">
-                <h2>Physical Locations 📍</h2>
                 <img src="draw.io/04-Location.drawio.png" alt="Physical Location of Nodes">
             </section>
 
-            <!-- Slide 6: Architecture Diagram -->
-            <section>
-                <h2>Architecture Overview 🏗️</h2>
-                <pre class="ascii-art"><code style="color: var(--text-secondary);">
-    ┌─────────────────────────────────────────────────────────────────┐
-    │                        Cloudflare Edge                           │
-    │                   (Tunnels + DNS routing)                        │
-    └──────────┬──────────────────────┬──────────────────┬────────────┘
-               │                      │                  │
-    ┌──────────▼──────────┐ ┌────────▼────────┐ ┌──────▼──────────┐
-    │   🏠 House A (17A)   │ │  🏠 House B (17) │ │    ☁️  AWS       │
-    │  ┌──────────────┐   │ │ ┌──────────────┐ │ │ ┌─────────────┐│
-    │  │ k3s-karmada  │   │ │ │   k3s-c      │ │ │ │  k3s-aws    ││
-    │  │ (federation) │   │ │ │ (1CP+2W)     │ │ │ │  (DR-cold)  ││
-    │  ├──────────────┤   │ │ └──────────────┘ │ │ └─────────────┘│
-    │  │  k3s-l570    │   │ │  Catalin's lab   │ └─────────────────┘
-    │  │ (shared svc) │   │ └──────────────────┘
-    │  ├──────────────┤   │
-    │  │   k3s-m      │   │      ◄── Tailscale Mesh ──►
-    │  │ (1CP+2W)     │   │
-    │  └──────────────┘   │
-    │   Mircea's lab       │
-    └──────────────────────┘
-                </code></pre>
-            </section>
-
-            <!-- Slide 7: Cluster Breakdown -->
-            <section>
-                <h2>Cluster Breakdown 📋</h2>
-                <table>
-                    <thead><tr><th>Cluster</th><th>Location</th><th>Hardware</th><th>Role</th></tr></thead>
-                    <tbody>
-                        <tr><td><code>k3s-karmada</code></td><td>L570 (House A)</td><td>i5-6300U · 3.5GB</td><td>Federation control plane</td></tr>
-                        <tr><td><code>k3s-l570</code></td><td>L570 (House A)</td><td>i5-6300U · 8GB</td><td>ArgoCD, Grafana, Prometheus</td></tr>
-                        <tr><td><code>k3s-m</code></td><td>Homelab (House A)</td><td>i3-13100 · 64GB</td><td>Primary workloads + DB</td></tr>
-                        <tr><td><code>k3s-c</code></td><td>Catalin (House B)</td><td>i5-8500T · 32GB</td><td>Secondary + DB replica</td></tr>
-                        <tr><td><code>k3s-aws</code></td><td>AWS eu-central-1</td><td>t3.small · 2GB</td><td>Cold DR (stopped)</td></tr>
-                    </tbody>
-                </table>
-                <p class="fragment" style="color: var(--text-secondary); font-size: 0.75em; margin-top: 10px;">L570 = ThinkPad laptop running 24/7 · Homelab & Catalin = Proxmox VMs on desktop hardware</p>
-            </section>
-
-            <!-- Slide 8: Network -->
-            <section>
-                <h2>Network Topology 🌐</h2>
-                <div class="two-col">
-                    <div>
-                        <h3>Inter-site</h3>
-                        <ul>
-                            <li>Tailscale WireGuard mesh</li>
-                            <li>Every node: 100.x.x.x address</li>
-                            <li>No port forwarding anywhere</li>
-                            <li>Encrypted by default</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3>Local VLANs</h3>
-                        <ul>
-                            <li>VLAN 40: Karmada</li>
-                            <li>VLAN 41: k3s-l570</li>
-                            <li>VLAN 42: k3s-m</li>
-                            <li>No VLAN: k3s-c</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="fragment highlight-box" style="margin-top: 20px;">
-                    <p>🔮 Future: direct fiber between houses for &lt;1ms latency</p>
-                </div>
-            </section>
-
-            <!-- Diagram: Network Detail -->
+            <!-- 05: Network -->
             <section class="diagram-slide" data-transition="fade">
-                <h2>Network Diagram 🌐</h2>
                 <img src="draw.io/05-network.drawio.png" alt="Network Topology Diagram">
             </section>
 
-            <!-- Slide 9: The Stack -->
+            <!-- 06: PBS -->
+            <section class="diagram-slide" data-transition="fade">
+                <img src="draw.io/06-pbs.drawio.png" alt="Proxmox Backup Server Setup">
+            </section>
+
+            <!-- 07: Final -->
+            <section class="diagram-slide" data-transition="fade">
+                <img src="draw.io/07-final.drawio.png" alt="Final Architecture">
+            </section>
+
+            <!-- 08: Full Overview -->
+            <section class="diagram-slide" data-transition="fade">
+                <img src="draw.io/08-FULL-OVerview.drawio.png" alt="Full Infrastructure Overview">
+            </section>
+
+            <!-- 09: DR -->
+            <section class="diagram-slide" data-transition="fade">
+                <img src="draw.io/09-DR.drawio.png" alt="Disaster Recovery Plan">
+            </section>
+
+            <!-- 10: Zoomed In -->
+            <section class="diagram-slide" data-transition="fade">
+                <img src="draw.io/10-zoomed-in.drawio.png" alt="Zoomed In Detail">
+            </section>
+
+            <!-- ═══════════════════════════════════════════════════════════ -->
+            <!-- DEEP DIVE SLIDES                                           -->
+            <!-- ═══════════════════════════════════════════════════════════ -->
+
+            <!-- The Stack -->
             <section class="center-slide">
                 <h2>The Stack 🧰</h2>
                 <div style="margin-top: 20px;">
@@ -696,7 +628,7 @@
                 <p class="fragment" style="margin-top: 30px; color: var(--text-secondary);">100% open source (except Tailscale coordination &amp; Cloudflare)</p>
             </section>
 
-            <!-- Slide 10: GitOps -->
+            <!-- GitOps -->
             <section>
                 <h2>GitOps Everything 🔄</h2>
                 <ul>
@@ -715,7 +647,7 @@
 └── .github/workflows/         # CI/CD</code></pre>
             </section>
 
-            <!-- Slide 11: Karmada -->
+            <!-- Karmada -->
             <section>
                 <h2>Karmada Federation 🌍</h2>
                 <p>Distribute workloads across clusters with policy-based scheduling</p>
@@ -740,7 +672,7 @@ spec:
                 <p class="fragment" style="color: var(--accent-gold);">Duplicated = full copy on each site. Cloudflare handles routing.</p>
             </section>
 
-            <!-- Slide 12: Cloudflare Tunnels -->
+            <!-- Cloudflare Tunnels -->
             <section>
                 <h2>Cloudflare Tunnels 🚇</h2>
                 <ul>
@@ -755,7 +687,7 @@ spec:
                 </div>
             </section>
 
-            <!-- Slide 13: CloudNativePG -->
+            <!-- CloudNativePG -->
             <section>
                 <h2>CloudNativePG 🐘</h2>
                 <div class="two-col">
@@ -781,13 +713,7 @@ spec:
                 </div>
             </section>
 
-            <!-- Diagram: Proxmox Backup Server -->
-            <section class="diagram-slide" data-transition="fade">
-                <h2>Proxmox Backup Server 💾</h2>
-                <img src="draw.io/06-pbs.drawio.png" alt="Proxmox Backup Server Setup">
-            </section>
-
-            <!-- Slide 14: ESO -->
+            <!-- ESO -->
             <section>
                 <h2>External Secrets Operator 🔐</h2>
                 <p>Zero-cost secret management with AWS Parameter Store</p>
@@ -807,7 +733,7 @@ spec:
                 <p class="fragment" style="color: var(--accent-gold);">No more <code>kubectl create secret</code> on every cluster 🎉</p>
             </section>
 
-            <!-- Slide 15: Monitoring -->
+            <!-- Monitoring -->
             <section>
                 <h2>Observability 📊</h2>
                 <ul>
@@ -822,7 +748,7 @@ spec:
                 </div>
             </section>
 
-            <!-- Slide 16: Live Demo -->
+            <!-- Live Demo -->
             <section>
                 <h2>Live Demo 🎬</h2>
                 <div class="two-col">
@@ -843,7 +769,7 @@ spec:
                 </div>
             </section>
 
-            <!-- Slide 17: Failover -->
+            <!-- Resilience -->
             <section>
                 <h2>Resilience in Action 🛡️</h2>
                 <p>What happens during a network outage or hardware failure?</p>
@@ -857,25 +783,7 @@ spec:
                 <p class="fragment" style="color: var(--accent-gold); font-size: 1em; margin-top: 20px;">🎯 RTO: ~30s | RPO: 0 (active-active)</p>
             </section>
 
-            <!-- Diagram: Full Overview -->
-            <section class="diagram-slide" data-transition="fade">
-                <h2>Full Overview 🗺️</h2>
-                <img src="draw.io/08-FULL-OVerview.drawio.png" alt="Full Infrastructure Overview">
-            </section>
-
-            <!-- Diagram: DR -->
-            <section class="diagram-slide" data-transition="fade">
-                <h2>Disaster Recovery 🔄</h2>
-                <img src="draw.io/09-DR.drawio.png" alt="Disaster Recovery Plan">
-            </section>
-
-            <!-- Diagram: Final Architecture -->
-            <section class="diagram-slide" data-transition="fade">
-                <h2>Final Architecture 🏗️</h2>
-                <img src="draw.io/07-final.drawio.png" alt="Final Architecture">
-            </section>
-
-            <!-- Slide 18: What Went Wrong -->
+            <!-- What Went Wrong -->
             <section>
                 <h2>What Went Wrong 💥</h2>
                 <ul>
