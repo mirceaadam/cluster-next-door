@@ -423,6 +423,26 @@
             box-shadow: var(--glass-shadow);
             border: 1px solid var(--border);
         }
+
+        /* Diagram slide styling */
+        .reveal .diagram-slide {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center !important;
+        }
+        .reveal .diagram-slide img {
+            max-width: 85%;
+            max-height: 70vh;
+            object-fit: contain;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+        }
+        .reveal .diagram-slide h2 {
+            margin-bottom: 0.4em;
+        }
     </style>
 </head>
 <body>
@@ -492,6 +512,12 @@
                 </ul>
             </section>  
 
+            <!-- Diagram: Project Context -->
+            <section class="diagram-slide" data-transition="fade">
+                <h2>Project Context 🗺️</h2>
+                <img src="draw.io/00-Project-Context.drawio.png" alt="Project Context Overview">
+            </section>
+
             <!-- Slide 3: About Me -->
             <section>
                 <h2>About Me 👋</h2>
@@ -504,8 +530,14 @@
                 <aside class="notes">Quick intro — I'm a platform engineer who believes you don't need a cloud bill to run production workloads.</aside>
             </section>
 
-            <!-- Slide 2.5: Meet the Hardware -->
-            <section>
+            <!-- Diagram: Meet The Hardware -->
+            <section class="diagram-slide" data-transition="fade">
+                <h2>Meet the Hardware 🖥️</h2>
+                <img src="draw.io/01-Meet-The-HardWare.drawio.png" alt="Meet The Hardware">
+            </section>
+
+            <!-- Slide 2.5: Meet the Hardware (specs table) -->
+            <section data-transition="fade">
                 <h2>Meet the Hardware 🖥️</h2>
                 <table>
                     <thead><tr><th>Host</th><th>CPU</th><th>RAM</th><th>Role</th></tr></thead>
@@ -519,8 +551,14 @@
                 <p class="fragment" style="color: var(--text-secondary); font-size: 0.8em; margin-top: 15px;">All on-prem nodes run as Proxmox VMs · Solar powered ☀️ · Total cost of hardware: ~€200 (used market)</p>
             </section>
 
+            <!-- Diagram: Hardware Specs Detail -->
+            <section class="diagram-slide" data-transition="fade">
+                <h2>Hardware Specs 📊</h2>
+                <img src="draw.io/02-Meet-The-HardWare-specs.drawio.png" alt="Hardware Specifications">
+            </section>
+
             <!-- Slide 5: The Idea -->
-            <section class="center-slide">
+            <section class="center-slide" data-transition="fade">
                 <h2>Obvious Question.. 🤔</h2>
                 <img class="fragment" src="img/crysis.jpg" alt="But can it run Crysis?!" style="max-width: 70%; border-radius: 12px; margin-top: 20px; box-shadow: 0 4px 30px rgba(0,0,0,0.5);">
                 <p class="fragment" style="font-size: 1.8em; margin-top: 30px;">
@@ -529,6 +567,12 @@
                     <strong>PROXMOX ?!</strong>
                 </p>
                 <aside class="notes">Build up the joke — Crysis is the classic, but what we really care about is: can it run Proxmox and virtualize everything?</aside>
+            </section>
+
+            <!-- Diagram: Can It Run Proxmox (answer) -->
+            <section class="diagram-slide" data-transition="fade">
+                <h2>Yes, it can! ✅</h2>
+                <img src="draw.io/03-can-it-run-proxmox.drawio.png" alt="Can it run Proxmox - Yes!">
             </section>
 
             <!-- Slide 4: The Problem -->
@@ -555,6 +599,12 @@
                     <li class="fragment">☁️ AWS as cold DR only (EC2 stopped = $0)</li>
                 </ul>
                 <p class="fragment" style="color: var(--accent-gold); font-size: 1.1em; margin-top: 25px;"><strong>Total monthly cost: ~$1.50</strong></p>
+            </section>
+
+            <!-- Diagram: Location -->
+            <section class="diagram-slide" data-transition="fade">
+                <h2>Physical Locations 📍</h2>
+                <img src="draw.io/04-Location.drawio.png" alt="Physical Location of Nodes">
             </section>
 
             <!-- Slide 6: Architecture Diagram -->
@@ -625,6 +675,12 @@
                 <div class="fragment highlight-box" style="margin-top: 20px;">
                     <p>🔮 Future: direct fiber between houses for &lt;1ms latency</p>
                 </div>
+            </section>
+
+            <!-- Diagram: Network Detail -->
+            <section class="diagram-slide" data-transition="fade">
+                <h2>Network Diagram 🌐</h2>
+                <img src="draw.io/05-network.drawio.png" alt="Network Topology Diagram">
             </section>
 
             <!-- Slide 9: The Stack -->
@@ -725,6 +781,12 @@ spec:
                 </div>
             </section>
 
+            <!-- Diagram: Proxmox Backup Server -->
+            <section class="diagram-slide" data-transition="fade">
+                <h2>Proxmox Backup Server 💾</h2>
+                <img src="draw.io/06-pbs.drawio.png" alt="Proxmox Backup Server Setup">
+            </section>
+
             <!-- Slide 14: ESO -->
             <section>
                 <h2>External Secrets Operator 🔐</h2>
@@ -793,6 +855,24 @@ spec:
                     <li class="fragment">Once connectivity restores → traffic rebalances</li>
                 </ol>
                 <p class="fragment" style="color: var(--accent-gold); font-size: 1em; margin-top: 20px;">🎯 RTO: ~30s | RPO: 0 (active-active)</p>
+            </section>
+
+            <!-- Diagram: Full Overview -->
+            <section class="diagram-slide" data-transition="fade">
+                <h2>Full Overview 🗺️</h2>
+                <img src="draw.io/08-FULL-OVerview.drawio.png" alt="Full Infrastructure Overview">
+            </section>
+
+            <!-- Diagram: DR -->
+            <section class="diagram-slide" data-transition="fade">
+                <h2>Disaster Recovery 🔄</h2>
+                <img src="draw.io/09-DR.drawio.png" alt="Disaster Recovery Plan">
+            </section>
+
+            <!-- Diagram: Final Architecture -->
+            <section class="diagram-slide" data-transition="fade">
+                <h2>Final Architecture 🏗️</h2>
+                <img src="draw.io/07-final.drawio.png" alt="Final Architecture">
             </section>
 
             <!-- Slide 18: What Went Wrong -->
