@@ -483,7 +483,7 @@
 
             <!-- Slide 1: Title -->
             <section class="title-slide">
-                <h1>The Cluster Next Door 🏘️</h1>
+                <h1>The Cluster Next Door</h1>
                 <p style="font-size: 1.1em; color: var(--text-secondary);">Multi-Site Kubernetes Federation<br>with Near-Zero Cloud Costs</p>
                 <br>
                 <p style="font-size: 0.8em; color: var(--text-secondary);">CNCF Timisoara &bull; Mircea Adam</p>
@@ -500,18 +500,6 @@
                 <p style="font-size: 1.1em; color: var(--accent-gold);">giveaway.mircea.solutions</p>
             </section>
 
-            <!-- Slide 3: Purpose -->
-            <section class="center-slide">
-                <h2>Purpuse.</h2>
-                <ul>
-                    <li class="fragment"> - run compute / dbs on solar power</li>
-                    <li class="fragment"> - some sort of basic HA for hosting common apps </li>
-                    <li class="fragment"> - use CloudNative Products (CloudNativePG / Karmada, etc.)</li>
-                    <li class="fragment"> - we homelabing</li>
-                    <li class="fragment"> - ...fix my/our vitamin K deficency (K8s, K3s, Karmada, Karpenter etc..)</li>
-                </ul>
-            </section>
-
             <!-- Slide 4: About Me -->
             <section>
                 <h2>About Me 👋</h2>
@@ -521,33 +509,46 @@
                     <li class="fragment">For this presentation: Homelab enthusiast</li>
                     <li class="fragment">..old hardware hoarder 🤔</li>
                 </ul>
-                <aside class="notes">Quick intro — I'm a platform engineer who believes you don't need a cloud bill to run production workloads.</aside>
+                <aside class="notes">remeber that "hoarder part please.. "</aside>
             </section>
-
-            <!-- Slide 5: Cluster Roles & Locations -->
-            <section>
-                <h2>The Setup 🏠</h2>
-                <table>
-                    <thead><tr><th>Cluster</th><th>Location</th><th>Role</th></tr></thead>
-                    <tbody>
-                        <tr><td><code>k3s-karmada</code></td><td>House A (Mircea)</td><td>Federation control plane</td></tr>
-                        <tr><td><code>k3s-l570</code></td><td>House A (Mircea)</td><td>ArgoCD, Grafana, Prometheus</td></tr>
-                        <tr><td><code>k3s-m</code></td><td>House A (Mircea)</td><td>Primary workloads + DB</td></tr>
-                        <tr><td><code>k3s-c</code></td><td>House B (Catalin)</td><td>Secondary + DB replica</td></tr>
-                        <tr><td><code>k3s-aws</code></td><td>AWS eu-central-1</td><td>Cold DR (stopped)</td></tr>
-                    </tbody>
-                </table>
-                <p class="fragment" style="color: var(--text-secondary); font-size: 0.8em; margin-top: 15px;">All on-prem nodes run as Proxmox VMs · Solar powered ☀️ · Total cost of hardware: ~€200 (used market)</p>
-            </section>
-
-            <!-- ═══════════════════════════════════════════════════════════ -->
-            <!-- ARCHITECTURE DIAGRAM PROGRESSION (fade between all images) -->
-            <!-- ═══════════════════════════════════════════════════════════ -->
 
             <!-- 00: Project Context -->
             <section class="diagram-slide" data-transition="fade">
                 <img src="draw.io/00-Project-Context.drawio.png" alt="Project Context Overview">
             </section>
+
+            <!-- Slide 3: Purpose -->
+            <section class="center-slide">
+                <h2>Purpuse.</h2>
+                <ul>
+                    <li class="fragment"> "homelabs!"</li>
+                    <li class="fragment"> ...fix my/our vitamin K deficency (K8s, K3s, Karmada, Karpenter etc..)</li>
+                    <li class="fragment"> run compute / dbs on solar</li>
+                    <li class="fragment"> basic HA for hosting common apps </li>
+                    <li class="fragment"> use CloudNative Products (CloudNativePG / Karmada, etc.)</li>
+                </ul>
+            </section>
+
+            <!-- Slide 22: Links -->
+            <section>
+                <h2>Links 🔗</h2>
+                <div class="two-col">
+                    <div>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding: 6px 0;">🎨 <a href="https://figurines.mircea.solutions">figurines.mircea.solutions</a></li>
+                            <li style="padding: 6px 0;">🖥️ <a href="https://dashboard-v2.mircea.solutions">dashboard.mircea.solutions</a></li>
+                        </ul>
+                    </div>
+                    <div class="qr-container">
+                        <div id="qr-slides"></div>
+                        <p style="font-size: 0.65em; margin-top: 8px; color: var(--text-secondary);">These slides</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════════════════════════════════════════════════════ -->
+            <!-- ARCHITECTURE DIAGRAM PROGRESSION (fade between all images) -->
+            <!-- ═══════════════════════════════════════════════════════════ -->
 
             <!-- 01: Meet The Hardware -->
             <section class="diagram-slide" data-transition="fade">
@@ -611,43 +612,27 @@
                 <img src="draw.io/10-zoomed-in.drawio.png" alt="Zoomed In Detail">
             </section>
 
+            <!-- Slide x: Recap -->
+            <section>
+                <h2>The Setup 🏠</h2>
+                <table>
+                    <thead><tr><th>Cluster</th><th>Location</th><th>Role</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>k3s-karmada</code></td><td>House A (Mircea)</td><td>Federation control plane</td></tr>
+                        <tr><td><code>k3s-l570</code></td><td>House A (Mircea)</td><td>ArgoCD, Grafana, Prometheus</td></tr>
+                        <tr><td><code>k3s-m</code></td><td>House A (Mircea)</td><td>Primary workloads + DB</td></tr>
+                        <tr><td><code>k3s-c</code></td><td>House B (Catalin)</td><td>Secondary + DB replica</td></tr>
+                        <tr><td><code>k3s-aws</code></td><td>AWS eu-central-1</td><td>Cold DR (stopped)</td></tr>
+                    </tbody>
+                </table>
+                <p class="fragment" style="color: var(--text-secondary); font-size: 0.8em; margin-top: 15px;">All on-prem nodes run as Proxmox VMs · Solar powered ☀️ · Total cost of hardware: ~€200 (used market)</p>
+            </section>
+
             <!-- ═══════════════════════════════════════════════════════════ -->
             <!-- DEEP DIVE SLIDES                                           -->
             <!-- ═══════════════════════════════════════════════════════════ -->
 
-            <!-- The Stack -->
-            <section class="center-slide">
-                <h2>The Stack 🧰</h2>
-                <div style="margin-top: 20px;">
-                    <span class="tag">Karmada</span> <span class="tag">ArgoCD</span> <span class="tag">Traefik</span>
-                    <span class="tag">CloudNativePG</span> <span class="tag">Prometheus</span> <span class="tag">Grafana</span>
-                    <span class="tag">Tailscale</span> <span class="tag">Terraform</span> <span class="tag">Ansible</span>
-                    <span class="tag">Cloudflare Tunnels</span> <span class="tag">ESO</span> <span class="tag">cert-manager</span>
-                    <span class="tag">MetalLB</span> <span class="tag">k3s</span> <span class="tag">Proxmox</span>
-                </div>
-                <p class="fragment" style="margin-top: 30px; color: var(--text-secondary);">100% open source (except Tailscale coordination &amp; Cloudflare)</p>
-            </section>
-
-            <!-- GitOps -->
-            <section>
-                <h2>GitOps Everything 🔄</h2>
-                <ul>
-                    <li class="fragment">Single private repo: <code>infra-nk</code></li>
-                    <li class="fragment">ArgoCD app-of-apps pattern</li>
-                    <li class="fragment">Push to main → ArgoCD reconciles</li>
-                    <li class="fragment">Terraform + Ansible for infra layer</li>
-                </ul>
-                <pre class="fragment"><code class="language-plaintext">infra-nk/
-├── terraform/environments/    # Proxmox VMs + AWS EC2
-├── ansible/playbooks/         # k3s bootstrap
-├── apps/
-│   ├── argocd-apps/           # App-of-apps
-│   ├── base/                  # K8s manifests
-│   └── overlays/              # Per-cluster kustomize
-└── .github/workflows/         # CI/CD</code></pre>
-            </section>
-
-            <!-- Karmada -->
+                        <!-- Karmada -->
             <section>
                 <h2>Karmada Federation 🌍</h2>
                 <p>Distribute workloads across clusters with policy-based scheduling</p>
@@ -769,6 +754,25 @@ spec:
                 </div>
             </section>
 
+                        <!-- GitOps -->
+            <section>
+                <h2>GitOps Everything 🔄</h2>
+                <ul>
+                    <li class="fragment">Single private repo: <code>infra-nk</code></li>
+                    <li class="fragment">ArgoCD app-of-apps pattern</li>
+                    <li class="fragment">Push to main → ArgoCD reconciles</li>
+                    <li class="fragment">Terraform + Ansible for infra layer</li>
+                </ul>
+                <pre class="fragment"><code class="language-plaintext">infra-nk/
+├── terraform/environments/    # Proxmox VMs + AWS EC2
+├── ansible/playbooks/         # k3s bootstrap
+├── apps/
+│   ├── argocd-apps/           # App-of-apps
+│   ├── base/                  # K8s manifests
+│   └── overlays/              # Per-cluster kustomize
+└── .github/workflows/         # CI/CD</code></pre>
+            </section>
+
             <!-- Resilience -->
             <section>
                 <h2>Resilience in Action 🛡️</h2>
@@ -833,26 +837,6 @@ spec:
                 </div>
                 <p style="color: var(--accent-gold); font-size: 0.95em;">Winner gets a 3D printed Iron Man from Catalin! 🦾</p>
                 <p style="font-size: 0.75em; color: var(--text-secondary);">giveaway.mircea.solutions</p>
-            </section>
-
-            <!-- Slide 22: Links -->
-            <section>
-                <h2>Links & Resources 🔗</h2>
-                <div class="two-col">
-                    <div>
-                        <ul style="list-style: none; padding: 0;">
-                            <li style="padding: 6px 0;">📦 <a href="https://github.com/mirceaadam/cluster-next-door">GitHub: cluster-next-door</a></li>
-                            <li style="padding: 6px 0;">🖥️ <a href="https://dashboard.mircea.solutions">dashboard.mircea.solutions</a></li>
-                            <li style="padding: 6px 0;">📊 <a href="https://grafana.mircea.solutions">grafana.mircea.solutions</a></li>
-                            <li style="padding: 6px 0;">🎨 <a href="https://figurines.mircea.solutions">figurines.mircea.solutions</a></li>
-                            <li style="padding: 6px 0;">🎁 <a href="https://giveaway.mircea.solutions">giveaway.mircea.solutions</a></li>
-                        </ul>
-                    </div>
-                    <div class="qr-container">
-                        <div id="qr-slides"></div>
-                        <p style="font-size: 0.65em; margin-top: 8px; color: var(--text-secondary);">These slides</p>
-                    </div>
-                </div>
             </section>
 
             <!-- Slide 23: Thank You -->
