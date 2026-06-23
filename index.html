@@ -646,6 +646,20 @@
             <!-- DEEP DIVE SLIDES                                           -->
             <!-- ═══════════════════════════════════════════════════════════ -->
 
+            <!-- 26: Resilience -->
+            <section>
+                <h2>Resilience in Action 🛡️</h2>
+                <p>What happens during a network outage or hardware failure?</p>
+                <ol>
+                    <li class="fragment">Cloudflare detects connector failure (~30s)</li>
+                    <li class="fragment">Traffic routes to the healthy site automatically</li>
+                    <li class="fragment">Users experience zero downtime</li>
+                    <li class="fragment">Karmada marks affected cluster as NotReady (~120s)</li>
+                    <li class="fragment">Once connectivity restores → traffic rebalances</li>
+                </ol>
+                <p class="fragment" style="color: var(--accent-gold); font-size: 1em; margin-top: 20px;">🎯 RTO: ~30s | RPO: 0 (active-active)</p>
+            </section>
+
             <!-- 19: Karmada Federation -->
             <section>
                 <h2>Karmada Federation 🌍</h2>
@@ -764,20 +778,6 @@ spec:
 │   ├── base/                  # K8s manifests
 │   └── overlays/              # Per-cluster kustomize
 └── .github/workflows/         # CI/CD</code></pre>
-            </section>
-
-            <!-- 26: Resilience -->
-            <section>
-                <h2>Resilience in Action 🛡️</h2>
-                <p>What happens during a network outage or hardware failure?</p>
-                <ol>
-                    <li class="fragment">Cloudflare detects connector failure (~30s)</li>
-                    <li class="fragment">Traffic routes to the healthy site automatically</li>
-                    <li class="fragment">Users experience zero downtime</li>
-                    <li class="fragment">Karmada marks affected cluster as NotReady (~120s)</li>
-                    <li class="fragment">Once connectivity restores → traffic rebalances</li>
-                </ol>
-                <p class="fragment" style="color: var(--accent-gold); font-size: 1em; margin-top: 20px;">🎯 RTO: ~30s | RPO: 0 (active-active)</p>
             </section>
 
             <!-- 27: What Went Wrong -->
