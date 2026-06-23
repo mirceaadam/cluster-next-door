@@ -788,6 +788,7 @@ spec:
                     <li class="fragment"><strong>Shared tunnel 404s</strong> — 3 connectors, only 1 has all Ingresses. Random 404s.</li>
                     <li class="fragment"><strong>LXC → VM</strong> — k3s needs kernel features LXC can't provide. Rebuilt everything.</li>
                     <li class="fragment"><strong>Manual secrets</strong> — <code>kubectl create secret</code> on 4 clusters. ESO fixed this.</li>
+                    <li class="fragment"><strong>Unstable Deployments</strong> Deployments were a hit / or miss</li>
                 </ul>
             </section>
 
@@ -796,10 +797,10 @@ spec:
                 <h2>What I'd Do Differently 🔄</h2>
                 <ul>
                     <li class="fragment">✅ Start with ESO from day 1</li>
+                    <li class="fragment">✅ Successful "Template Application" used as example</li>
                     <li class="fragment">✅ Separate Cloudflare tunnels per cluster</li>
                     <li class="fragment">✅ VMs over LXCs for k3s</li>
                     <li class="fragment">✅ <code>conflictResolution: Overwrite</code> in every PropagationPolicy</li>
-                    <li class="fragment">✅ Plan Grafana dashboard JSON structure early (panel IDs matter)</li>
                 </ul>
             </section>
 
