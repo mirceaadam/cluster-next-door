@@ -806,12 +806,15 @@ spec:
 
             <!-- 28: Bloopers -->
             <section>
-                <h2>Bloopers </h2>
+                <h2>Bloopers 🎬</h2>
                 <ul>
-                    <li class="fragment">✅ Successfully annoyed wife..   </li>
-                    <li class="fragment">                               because I killed the thermostat </li>
-                    <li class="fragment">✅ Succesfully annoyed wife again.. </li>
-                    <li class="fragment">                               the AI agent killed internet / our internal DNS </li>
+                    <li class="fragment">😤 Successfully annoyed wife...</li>
+                    <li class="fragment">🌡️ ...because I killed the thermostat (sysctl broke ALL networking on Proxmox)</li>
+                    <li class="fragment">😤😤 Successfully annoyed wife again...</li>
+                    <li class="fragment">🤖 ...the AI agent killed internet / our internal DNS</li>
+                    <li class="fragment">🔥 Tailscale overwrote /etc/resolv.conf → no DNS on any node → <code>apt-get</code> broken everywhere</li>
+                    <li class="fragment">📦 Pushed an image tag that doesn't exist → Karmada failover fired → evicted app from ALL clusters → 0 replicas</li>
+                    <li class="fragment">🏠 ISP router (ZTE F668) silently eats port 443 for its own admin page. Hours of debugging NAT rules that "should work"</li>
                 </ul>
             </section>            
 
