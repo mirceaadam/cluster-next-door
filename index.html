@@ -746,6 +746,25 @@ spec:
                 <p class="fragment" style="color: var(--accent-gold);">No more <code>kubectl create secret</code> on every cluster 🎉</p>
             </section>
 
+            <!-- 29: Total Monthly Cost -->
+            <section>
+                <h2>Total Monthly Cost 🧮</h2>
+                <table class="cost-table">
+                    <thead><tr><th>Service</th><th>What</th><th>Cost</th></tr></thead>
+                    <tbody>
+                        <tr><td>AWS EC2</td><td>Stopped (DR only)</td><td>$0</td></tr>
+                        <tr><td>AWS EBS</td><td>20GB gp3 (DR volume)</td><td>$1.90</td></tr>
+                        <tr><td>AWS S3</td><td>WAL backups + state + figurines</td><td>$0.12</td></tr>
+                        <tr><td>AWS Parameter Store</td><td>Standard tier (free)</td><td>$0</td></tr>
+                        <tr><td>Cloudflare</td><td>Tunnels + DNS (free tier)</td><td>$0</td></tr>
+                        <tr><td>Tailscale</td><td>Free tier (personal)</td><td>$0</td></tr>
+                        <tr><td>Domain</td><td>mircea.solutions</td><td>$2.08</td></tr>
+                        <tr><td colspan="2" style="text-align: right;"><strong>Total</strong></td><td style="font-size: 1.2em;">~$4.10/mo</td></tr>
+                    </tbody>
+                </table>
+                <p class="fragment" style="text-align: center; color: var(--accent-gold);">That's less than "a shaorma" </p>
+            </section>
+
             <!-- 23: Observability -->
             <section>
                 <h2>Observability 📊</h2>
@@ -823,26 +842,6 @@ spec:
                 <aside class="notes">Tailscale overwrote /etc/resolv.conf → no DNS on any node apt-getbroken >
                 <aside class="notes">Pushed an image tag that doesn't exist → Karmada failover fired → evicted app from ALL clusters → 0 replicas</aside>    
             </section>            
-
-            <!-- 29: Total Monthly Cost -->
-            <section>
-                <h2>Total Monthly Cost 🧮</h2>
-                <table class="cost-table">
-                    <thead><tr><th>Service</th><th>What</th><th>Cost</th></tr></thead>
-                    <tbody>
-                        <tr><td>AWS EC2</td><td>Stopped (DR only)</td><td>$0</td></tr>
-                        <tr><td>AWS EBS</td><td>20GB gp3 (DR volume)</td><td>$0*</td></tr>
-                        <tr><td>AWS S3</td><td>WAL backups + state + figurines</td><td>$0.12</td></tr>
-                        <tr><td>AWS Parameter Store</td><td>Standard tier (free)</td><td>$0</td></tr>
-                        <tr><td>Cloudflare</td><td>Tunnels + DNS (free tier)</td><td>$0</td></tr>
-                        <tr><td>Tailscale</td><td>Free tier (personal)</td><td>$0</td></tr>
-                        <tr><td>Domain</td><td>mircea.solutions</td><td>$2.08</td></tr>
-                        <tr><td colspan="2" style="text-align: right;"><strong>Total</strong></td><td style="font-size: 1.2em;">~$2.20/mo</td></tr>
-                    </tbody>
-                </table>
-                <p class="fragment" style="font-size: 0.7em; color: var(--text-secondary); margin-top: 10px;">*Currently $0 (free tier credits) · Without credits: EBS adds $1.90/mo → $4.10/mo total</p>
-                <p class="fragment" style="text-align: center; color: var(--accent-gold);">That's less than a coffee ☕</p>
-            </section>
 
             <!-- 30: Giveaway -->
             <section class="center-slide">
