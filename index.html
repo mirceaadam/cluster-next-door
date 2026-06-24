@@ -579,7 +579,7 @@
             <!-- 8: Hardware Specs (diagram 02) -->
             <section class="diagram-slide" data-transition="fade">
                 <img src="draw.io/02-Meet-The-HardWare-specs.drawio.png" alt="Hardware Specifications">
-                <aside class="notes">L570 laptop (i5-6300U, 12GB) runs Karmada + shared services. Homelab (i3-13100, 64GB) is the workhorse. Catalin's (i5-8500T, 32GB) is the secondary site. Not enterprise gear — but more than enough for k3s.</aside>
+                <aside class="notes">remeber the laptop L570 laptop has an extra battery - shared services. Just remeber these 3</aside>
             </section>
 
             <!-- 9: Crysis Joke -->
@@ -591,7 +591,7 @@
                     <img src="https://www.proxmox.com/images/proxmox/Proxmox_symbol_standard_hex.png" alt="Proxmox" style="height: 1.1em; vertical-align: middle; margin: 0 6px;">
                     <strong>PROXMOX ?!</strong>
                 </p>
-                <aside class="notes">Build up the joke — Crysis is the classic, but what we really care about is: can it run Proxmox and virtualize everything?</aside>
+                <aside class="notes">..so with all this hardware laying around, what's the obvious question here with each machine ?!</aside>
             </section>
 
             <!-- 10: Can It Run Proxmox — answer (diagram 03) -->
@@ -603,7 +603,7 @@
             <!-- 11: Location (diagram 04) -->
             <section class="diagram-slide" data-transition="fade">
                 <img src="draw.io/04-Location.drawio.png" alt="Physical Location of Nodes">
-                <aside class="notes">Two houses, literally next door to each other in Giroc. Connected via Tailscale over the internet for now. Future plan: direct physical LAN cable between them.</aside>
+                <aside class="notes">Let's reorganize the hardware a bit.. </aside>
             </section>
 
             <!-- 12: Network (diagram 05) -->
@@ -621,7 +621,7 @@
             <!-- 14: Final Architecture (diagram 07) -->
             <section class="diagram-slide" data-transition="fade">
                 <img src="draw.io/07-final.drawio.png" alt="Final Architecture">
-                <aside class="notes">The final architecture — 5 clusters total. Karmada federates workloads across k3s-m and k3s-c. ArgoCD handles GitOps. Cloudflare Tunnels handle public ingress and failover.</aside>
+                <aside class="notes">The final architecture — 4 clusters total. Only 3 important.  Karmada federates workloads across k3s-m and k3s-c. ArgoCD handles GitOps. Cloudflare Tunnels handle public ingress and failover. CP+Nodes! </aside>
             </section>
 
             <!-- 15: Full Overview (diagram 08) -->
@@ -638,7 +638,7 @@
 
             <!-- 18: Cluster Recap Table -->
             <section>
-                <h2>The Setup 🏠</h2>
+                <h2>Recap! 🏠</h2>
                 <table>
                     <thead><tr><th>Cluster</th><th>Location</th><th>Role</th></tr></thead>
                     <tbody>
@@ -677,21 +677,6 @@
                 <aside class="notes">Karmada is like a scheduler on top of schedulers. You write normal Kubernetes manifests, add a PropagationPolicy, and Karmada handles placing them across clusters. In our case both sites get a full copy so either can serve traffic independently.</aside>
             </section>
 
-            <!-- 26: Resilience -->
-            <section>
-                <h2>Resilience in Action 🛡️</h2>
-                <p>What happens during a network outage or hardware failure?</p>
-                <ol>
-                    <li class="fragment">Cloudflare detects connector failure (~30s)</li>
-                    <li class="fragment">Traffic routes to the healthy site automatically</li>
-                    <li class="fragment">Users experience zero downtime</li>
-                    <li class="fragment">Karmada marks affected cluster as NotReady (~120s)</li>
-                    <li class="fragment">Once connectivity restores → traffic rebalances</li>
-                </ol>
-                <p class="fragment" style="color: var(--accent-gold); font-size: 1em; margin-top: 20px;">🎯 RTO: ~30s | RPO: 0 (active-active)</p>
-                <aside class="notes">This is the core value prop. Active-active across two houses. Cloudflare does the fast failover (30s). Karmada is aware but doesn't reschedule — we use purgeMode: Never because both sites already have the app.</aside>
-            </section>
-
             <!-- 19: Karmada Federation -->
             <section>
                 <h2>Karmada Federation 🌍</h2>
@@ -716,6 +701,21 @@ spec:
       purgeMode: Never</code></pre>
                 <p class="fragment" style="color: var(--accent-gold);">Duplicated = full copy on each site. Cloudflare handles routing.</p>
                 <aside class="notes">Karmada is the CNCF federation project. PropagationPolicy tells it where to place workloads. Duplicated means both clusters get a full copy. purgeMode Never means don't evict — let Cloudflare handle the routing decision.</aside>
+            </section>
+
+            <!-- 26: Resilience -->
+            <section>
+                <h2>Resilience in Action 🛡️</h2>
+                <p>What happens during a network outage or hardware failure?</p>
+                <ol>
+                    <li class="fragment">Cloudflare detects connector failure (~30s)</li>
+                    <li class="fragment">Traffic routes to the healthy site automatically</li>
+                    <li class="fragment">Users experience zero downtime</li>
+                    <li class="fragment">Karmada marks affected cluster as NotReady (~120s)</li>
+                    <li class="fragment">Once connectivity restores → traffic rebalances</li>
+                </ol>
+                <p class="fragment" style="color: var(--accent-gold); font-size: 1em; margin-top: 20px;">🎯 RTO: ~30s | RPO: 0 (active-active)</p>
+                <aside class="notes">This is the core value prop. Active-active across two houses. Cloudflare does the fast failover (30s). Karmada is aware but doesn't reschedule — we use purgeMode: Never because both sites already have the app.</aside>
             </section>
 
             <!-- 20: Cloudflare Tunnels -->
@@ -850,7 +850,7 @@ spec:
                 <aside class="notes">Hindsight is 20/20. ESO would have saved weeks of manual secret management. Template app pattern means new services deploy in minutes. Separate tunnels fixed the 404 lottery. VMs from day 1 would have avoided the LXC rebuild. And always set conflictResolution Overwrite or Karmada silently ignores existing resources.</aside>
             </section>
             <section>
-                <h2>Bloopers 🎬</h2>
+                <h2>"Success" Stories 🎬</h2>
                 <ul>
                     <li class="fragment">😤 Successfully annoyed wife. ✅ </li>
                     <li class="fragment"> ...because one cold evening in february I killed the smart thermostat🌡️ </li>
@@ -864,7 +864,7 @@ spec:
                 <aside class="notes">Internet/DNS: sysctl broke ALL networking on Proxmox when ajusting lxc</aside>
                 <aside class="notes">Internet/a SWITCH simply died</aside>
                 <aside class="notes">Catalin: restarting the node every 2 days now</aside>
-                <aside class="notes">Tailscale overwrote /etc/resolv.conf → no DNS on any node apt-getbroken >
+                <aside class="notes">Tailscale overwrote /etc/resolv.conf → no DNS on any node apt-getbroken </aside>
                 <aside class="notes">Pushed an image tag that doesn't exist → Karmada failover fired → evicted app from ALL clusters → 0 replicas</aside>    
             </section>            
 
