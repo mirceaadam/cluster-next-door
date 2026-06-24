@@ -808,14 +808,18 @@ spec:
             <section>
                 <h2>Bloopers 🎬</h2>
                 <ul>
-                    <li class="fragment">😤 Successfully annoyed wife...</li>
-                    <li class="fragment">🌡️ ...because I killed the thermostat (sysctl broke ALL networking on Proxmox)</li>
-                    <li class="fragment">😤😤 Successfully annoyed wife again...</li>
-                    <li class="fragment">🤖 ...the AI agent killed internet / our internal DNS</li>
-                    <li class="fragment">🔥 Tailscale overwrote /etc/resolv.conf → no DNS on any node → <code>apt-get</code> broken everywhere</li>
-                    <li class="fragment">📦 Pushed an image tag that doesn't exist → Karmada failover fired → evicted app from ALL clusters → 0 replicas</li>
-                    <li class="fragment">🏠 ISP router (ZTE F668) silently eats port 443 for its own admin page. Hours of debugging NAT rules that "should work"</li>
+                    <li class="fragment">😤 Successfully annoyed wife.</li>
+                    <li class="fragment"> ...because one cold evening in february I killed the smart thermostat🌡️ </li>
+                    <li class="fragment">😤😤 Successfully annoyed wife again..</li>
+                    <li class="fragment"> ...the AI agent🤖 killed internet / our internal DNS </li>
+                    <li class="fragment"> ✅ Successfully annoyed my neighbor Catalin..</li>
+                    <li class="fragment"> ✅ Successfully annoyed myself with many other minor stuff</li>
                 </ul>
+                <aside class="notes">thermostat: k3s CP IP takeover (thanx opnsense) - VLAN's</aside>
+                <aside class="notes">Internet/DNS: sysctl broke ALL networking on Proxmox when ajusting lxc</aside>
+                <aside class="notes">Catalin: restarting the node every 2 days now</aside>
+                <aside class="notes">Tailscale overwrote /etc/resolv.conf → no DNS on any node apt-getbroken >
+                <aside class="notes">Pushed an image tag that doesn't exist → Karmada failover fired → evicted app from ALL clusters → 0 replicas</aside>    
             </section>            
 
             <!-- 29: Total Monthly Cost -->
@@ -850,17 +854,16 @@ spec:
             </section>
 
             <!-- 31: Thank You -->
-            <section class="center-slide">
-                <p class="emoji-large">🙏</p>
-                <h2>Thank You!</h2>
-                <p style="font-size: 1.1em;">Questions?</p>
+            <section>
+                <h2>Thank You! 🙏</h2>
+                <p style="font-size: 0.95em; margin-bottom: 20px;">Special thanks to:</p>
+                <ul style="list-style: none; padding: 0;">
+                    <li class="fragment" style="padding: 6px 0;">� <strong>Bogdan Suta</strong> — for his assistance and patience in helping me take correctly the prescribed K Vitamins</li>
+                    <li class="fragment" style="padding: 6px 0;">🎨 <strong>Catalin Birlescu</strong> — for his amazing work and being an inspiration to actually get this done</li>
+                    <li class="fragment" style="padding: 6px 0;">📸 <strong>Tudor Adam</strong> — my nephew, for the awesome pictures he took for the figurines website and for being part of this project</li>
+                </ul>
                 <br>
-                <p style="color: var(--text-secondary);">Mircea Adam</p>
-                <p style="font-size: 0.8em;">
-                    <a href="https://github.com/mirceaadam">github.com/mirceaadam</a> &bull;
-                    <a href="https://mircea.solutions">mircea.solutions</a>
-                </p>
-                <br>
+                <p style="color: var(--text-secondary); font-size: 0.85em;">Mircea Adam &bull; <a href="https://github.com/mirceaadam">github.com/mirceaadam</a> &bull; <a href="https://mircea.solutions">mircea.solutions</a></p>
                 <p style="font-size: 0.75em; color: var(--text-secondary);">CNCF Timisoara 💙</p>
             </section>
 
