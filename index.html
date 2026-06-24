@@ -822,7 +822,8 @@ spec:
                     <thead><tr><th>Service</th><th>What</th><th>Cost</th></tr></thead>
                     <tbody>
                         <tr><td>AWS EC2</td><td>Stopped (DR only)</td><td>$0</td></tr>
-                        <tr><td>AWS EBS</td><td>20GB gp3 (DR volume, free tier)</td><td>$0*</td></tr>
+                        <tr><td>AWS EBS</td><td>20GB gp3 (DR volume)</td><td>$0*</td></tr>
+                        <tr><td>AWS Public IPv4</td><td>Elastic IP (idle)</td><td>$0*</td></tr>
                         <tr><td>AWS S3</td><td>WAL backups + state + figurines</td><td>$0.12</td></tr>
                         <tr><td>AWS Parameter Store</td><td>Standard tier (free)</td><td>$0</td></tr>
                         <tr><td>Cloudflare</td><td>Tunnels + DNS (free tier)</td><td>$0</td></tr>
@@ -831,8 +832,8 @@ spec:
                         <tr><td colspan="2" style="text-align: right;"><strong>Total</strong></td><td style="font-size: 1.2em;">~$2.20/mo</td></tr>
                     </tbody>
                 </table>
-                <p class="fragment" style="font-size: 0.7em; color: var(--text-secondary); margin-top: 10px;">*EBS would be $1.90/mo without free tier credits · Verified via AWS Cost Explorer</p>
-                <p class="fragment" style="text-align: center; color: var(--accent-gold);">That's less than a coffee ☕</p>
+                <p class="fragment" style="font-size: 0.7em; color: var(--text-secondary); margin-top: 10px;">*Currently $0 (free tier credits) · Without credits: EBS $1.90 + EIP $3.60 = $7.70/mo total</p>
+                <p class="fragment" style="text-align: center; color: var(--accent-gold);">Still less than two coffees ☕☕</p>
             </section>
 
             <!-- 30: Giveaway -->
