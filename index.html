@@ -663,6 +663,20 @@
             <!-- DEEP DIVE SLIDES                                           -->
             <!-- ═══════════════════════════════════════════════════════════ -->
 
+            <!-- Karmada Intro -->
+            <section>
+                <h2>Karmada — Multi-Cluster Federation ☸️</h2>
+                <ul>
+                    <li class="fragment"><strong>What:</strong> CNCF project that turns multiple K8s clusters into one logical platform</li>
+                    <li class="fragment"><strong>How:</strong> You define workloads once → Karmada distributes them based on policies</li>
+                    <li class="fragment"><strong>Why:</strong> No manual <code>kubectl apply</code> on each cluster — one API, many clusters</li>
+                </ul>
+                <div class="fragment highlight-box" style="margin-top: 20px;">
+                    <p><strong>In this project:</strong> Karmada runs on <code>k3s-karmada</code> (L570) and pushes the figurines + dashboard app to both <code>k3s-m</code> and <code>k3s-c</code> using <code>Duplicated</code> scheduling — full copy on each site.</p>
+                </div>
+                <aside class="notes">Karmada is like a scheduler on top of schedulers. You write normal Kubernetes manifests, add a PropagationPolicy, and Karmada handles placing them across clusters. In our case both sites get a full copy so either can serve traffic independently.</aside>
+            </section>
+
             <!-- 26: Resilience -->
             <section>
                 <h2>Resilience in Action 🛡️</h2>
