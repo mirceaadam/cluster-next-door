@@ -757,7 +757,7 @@ spec:
                 </ul>
                 <div class="fragment qr-container">
                     <div id="qr-grafana"></div>
-                    <p style="font-size: 0.7em; margin-top: 8px; color: var(--text-secondary);">grafana.mircea.solutions</p>
+                    <p style="font-size: 0.7em; margin-top: 8px; color: var(--text-secondary);">📊 Kubernetes Dashboard (public, no login needed)</p>
                 </div>
             </section>
 
@@ -808,15 +808,17 @@ spec:
             <section>
                 <h2>Bloopers 🎬</h2>
                 <ul>
-                    <li class="fragment">😤 Successfully annoyed wife.</li>
+                    <li class="fragment">😤 Successfully annoyed wife. ✅ </li>
                     <li class="fragment"> ...because one cold evening in february I killed the smart thermostat🌡️ </li>
-                    <li class="fragment">😤😤 Successfully annoyed wife again..</li>
+                    <li class="fragment">😤😤 Successfully annoyed wife again..✅ </li>
                     <li class="fragment"> ...the AI agent🤖 killed internet / our internal DNS </li>
-                    <li class="fragment"> ✅ Successfully annoyed my neighbor Catalin..</li>
-                    <li class="fragment"> ✅ Successfully annoyed myself with many other minor stuff</li>
+                    <li class="fragment"> Internet went down again one afternoon..</li>
+                    <li class="fragment"> Successfully annoyed my neighbor Catalin..</li>
+                    <li class="fragment"> Successfully annoyed myself with many other minor stuff</li>
                 </ul>
                 <aside class="notes">thermostat: k3s CP IP takeover (thanx opnsense) - VLAN's</aside>
                 <aside class="notes">Internet/DNS: sysctl broke ALL networking on Proxmox when ajusting lxc</aside>
+                <aside class="notes">Internet/a SWITCH simply died</aside>
                 <aside class="notes">Catalin: restarting the node every 2 days now</aside>
                 <aside class="notes">Tailscale overwrote /etc/resolv.conf → no DNS on any node apt-getbroken >
                 <aside class="notes">Pushed an image tag that doesn't exist → Karmada failover fired → evicted app from ALL clusters → 0 replicas</aside>    
@@ -906,7 +908,7 @@ spec:
             }
             if (document.getElementById('qr-grafana')) {
                 new QRCode(document.getElementById('qr-grafana'), {
-                    text: 'https://grafana.mircea.solutions',
+                    text: 'https://grafana.mircea.solutions/public-dashboards/d87fa4f78ab54ef7a3a17a57ca7f1f34',
                     width: 160, height: 160,
                     colorDark: '#0a0a0a', colorLight: '#ffffff',
                     correctLevel: QRCode.CorrectLevel.M
