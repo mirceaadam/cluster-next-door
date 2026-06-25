@@ -587,7 +587,7 @@
                     <img src="https://www.proxmox.com/images/proxmox/Proxmox_symbol_standard_hex.png" alt="Proxmox" style="height: 1.1em; vertical-align: middle; margin: 0 6px;">
                     <strong>PROXMOX ?!</strong>
                 </p>
-                <aside class="notes">..so with all this hardware laying around, what's the obvious question here with each machine ?!</aside>
+                <aside class="notes">..so with all this hardware laying around, What should they run? + PROMOXMOX WHAT IS IT? </aside>
             </section>
 
             <!-- 10: Can It Run Proxmox — answer (diagram 03) -->
@@ -618,6 +618,46 @@
             <section class="diagram-slide" data-transition="fade">
                 <img src="draw.io/07-final.drawio.png" alt="Final Architecture">
                 <aside class="notes">The final architecture — 4 clusters total. Only 3 important.  Karmada federates workloads across k3s-m and k3s-c. ArgoCD handles GitOps. Cloudflare Tunnels handle public ingress and failover. CP+Nodes! </aside>
+            </section>
+
+                        <!-- Karmada Intro -->
+            <section>
+                <h2>Karmada — Multi-Cluster Federation ☸️</h2>
+                <ul>
+                    <li class="fragment"><strong>What:</strong> CNCF project that turns multiple K8s clusters into one logical platform</li>
+                    <li class="fragment"><strong>How:</strong> You define workloads once → Karmada distributes them based on policies</li>
+                    <li class="fragment"><strong>Why:</strong> No manual <code>kubectl apply</code> on each cluster — one API, many clusters</li>
+                </ul>
+                <div class="fragment highlight-box" style="margin-top: 20px;">
+                    <p><strong>In this project:</strong> Karmada runs on <code>k3s-karmada</code> (L570) and pushes the figurines + dashboard app to both <code>k3s-m</code> and <code>k3s-c</code> using <code>Duplicated</code> scheduling — full copy on each site.</p>
+                </div>
+                <aside class="notes">Karmada is like a scheduler on top of schedulers. You write normal Kubernetes manifests, add a PropagationPolicy, and Karmada handles placing them across clusters. In our case both sites get a full copy so either can serve traffic independently.</aside>
+            </section>
+
+            <!-- 19: Karmada Federation -->
+            <section>
+                <h2>Karmada Federation 🌍</h2>
+                <p>Distribute workloads across clusters with policy-based scheduling</p>
+                <pre class="fragment"><code class="language-yaml">apiVersion: policy.karmada.io/v1alpha1
+kind: PropagationPolicy
+metadata:
+  name: dashboard-propagation
+spec:
+  resourceSelectors:
+    - apiVersion: apps/v1
+      kind: Deployment
+  placement:
+    clusterAffinity:
+      clusterNames: [k3s-m, k3s-c]
+    replicaScheduling:
+      replicaSchedulingType: Duplicated
+  failover:
+    application:
+      decisionConditions:
+        tolerationSeconds: 120
+      purgeMode: Never</code></pre>
+                <p class="fragment" style="color: var(--accent-gold);">Duplicated = full copy on each site. Cloudflare handles routing.</p>
+                <aside class="notes">Karmada is the CNCF federation project. PropagationPolicy tells it where to place workloads. Duplicated means both clusters get a full copy. purgeMode Never means don't evict — let Cloudflare handle the routing decision.</aside>
             </section>
 
             <!-- 15: Full Overview (diagram 08) -->
@@ -658,46 +698,6 @@
             <!-- ═══════════════════════════════════════════════════════════ -->
             <!-- DEEP DIVE SLIDES                                           -->
             <!-- ═══════════════════════════════════════════════════════════ -->
-
-            <!-- Karmada Intro -->
-            <section>
-                <h2>Karmada — Multi-Cluster Federation ☸️</h2>
-                <ul>
-                    <li class="fragment"><strong>What:</strong> CNCF project that turns multiple K8s clusters into one logical platform</li>
-                    <li class="fragment"><strong>How:</strong> You define workloads once → Karmada distributes them based on policies</li>
-                    <li class="fragment"><strong>Why:</strong> No manual <code>kubectl apply</code> on each cluster — one API, many clusters</li>
-                </ul>
-                <div class="fragment highlight-box" style="margin-top: 20px;">
-                    <p><strong>In this project:</strong> Karmada runs on <code>k3s-karmada</code> (L570) and pushes the figurines + dashboard app to both <code>k3s-m</code> and <code>k3s-c</code> using <code>Duplicated</code> scheduling — full copy on each site.</p>
-                </div>
-                <aside class="notes">Karmada is like a scheduler on top of schedulers. You write normal Kubernetes manifests, add a PropagationPolicy, and Karmada handles placing them across clusters. In our case both sites get a full copy so either can serve traffic independently.</aside>
-            </section>
-
-            <!-- 19: Karmada Federation -->
-            <section>
-                <h2>Karmada Federation 🌍</h2>
-                <p>Distribute workloads across clusters with policy-based scheduling</p>
-                <pre class="fragment"><code class="language-yaml">apiVersion: policy.karmada.io/v1alpha1
-kind: PropagationPolicy
-metadata:
-  name: dashboard-propagation
-spec:
-  resourceSelectors:
-    - apiVersion: apps/v1
-      kind: Deployment
-  placement:
-    clusterAffinity:
-      clusterNames: [k3s-m, k3s-c]
-    replicaScheduling:
-      replicaSchedulingType: Duplicated
-  failover:
-    application:
-      decisionConditions:
-        tolerationSeconds: 120
-      purgeMode: Never</code></pre>
-                <p class="fragment" style="color: var(--accent-gold);">Duplicated = full copy on each site. Cloudflare handles routing.</p>
-                <aside class="notes">Karmada is the CNCF federation project. PropagationPolicy tells it where to place workloads. Duplicated means both clusters get a full copy. purgeMode Never means don't evict — let Cloudflare handle the routing decision.</aside>
-            </section>
 
             <!-- 26: Resilience -->
             <section>
